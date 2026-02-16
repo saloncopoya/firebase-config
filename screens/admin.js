@@ -440,3 +440,15 @@ window.showAdminTab = function(tab) {
   // Aquí iría la lógica para cambiar el contenido según el tab
   AppState.addNotification(`Tab ${tab} - En construcción`, 'info');
 };
+
+
+
+// ==============================================
+// EXPORTAR CON AMBOS NOMBRES (para que funcione)
+// ==============================================
+window.renderAdminPanel = renderAdminPanel;
+window.renderAdminScreen = renderAdminPanel; // <-- ESTO SOLUCIONA EL ERROR
+console.log("✅ admin.js cargado, funciones:", {
+  panel: typeof window.renderAdminPanel,
+  screen: typeof window.renderAdminScreen
+});
