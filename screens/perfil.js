@@ -54,7 +54,7 @@ window.PerfilFirebase = {
     
     if (!window.perfilFirebaseApp) {
       window.perfilFirebaseApp = firebase.initializeApp(perfilConfig, "perfil");
-      window.perfilStorage = window.perfilFirebaseApp.storage(); // Para Cloudinary
+      //window.perfilStorage = window.perfilFirebaseApp.storage(); // Para Cloudinary
     }
     
     // Configuración de Cloudinary
