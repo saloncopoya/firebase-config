@@ -48,13 +48,11 @@ window.PerfilFirebase = {
       apiKey: "TU_API_KEY_PERFIL",
       authDomain: "tu-proyecto-perfil.firebaseapp.com",
       databaseURL: "https://tu-proyecto-perfil.firebaseio.com",
-      storageBucket: "tu-proyecto-perfil.appspot.com",
       projectId: "tu-proyecto-perfil"
     };
     
     if (!window.perfilFirebaseApp) {
       window.perfilFirebaseApp = firebase.initializeApp(perfilConfig, "perfil");
-      //window.perfilStorage = window.perfilFirebaseApp.storage(); // Para Cloudinary
     }
     
     // Configuración de Cloudinary
