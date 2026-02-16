@@ -93,7 +93,6 @@ window.AdminFirebase = {
       authDomain: "tu-proyecto-admin.firebaseapp.com",
       databaseURL: "https://tu-proyecto-admin.firebaseio.com",
       projectId: "tu-proyecto-admin",
-      storageBucket: "tu-proyecto-admin.appspot.com",
       messagingSenderId: "444555666"
     };
     
