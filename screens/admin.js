@@ -47,8 +47,8 @@ window.renderAdminPanel = async function() {
               </div>
             </div>
             <div style="background: #f0f8ff; padding: 10px 20px; border-radius: 20px; color: #8B4513;">
-              <span style="font-weight: 700;">${users ? users.length : 0}</span> usuarios registrados
-            </div>
+  <span style="font-weight: 700;">${Array.isArray(users) ? users.length : 0}</span> usuarios registrados
+</div>
           </div>
 
           <!-- Tabs de navegación admin -->
@@ -69,8 +69,8 @@ window.renderAdminPanel = async function() {
 
           <!-- Contenido dinámico según tab -->
           <div id="admin-content">
-            ${window.renderAdminUsersList(users)}
-          </div>
+  ${Array.isArray(users) ? window.renderAdminUsersList(users) : '<div>Cargando usuarios...</div>'}
+</div>
 
         </div>
       </div>
