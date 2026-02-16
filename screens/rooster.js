@@ -67,3 +67,9 @@ window.RoosterFirebase = {
     this.initialized = true;
   }
 };
+
+// ==============================================
+// EXPORTAR FUNCIÓN PRINCIPAL - AGREGAR AL FINAL
+// ==============================================
+window.renderRoosterScreen = renderRoosterScreen;
+console.log("✅ rooster.js cargado, función global asignada");
