@@ -1,5 +1,5 @@
 // ==============================================
-// PANTALLA ROOSTER (TORNEOS) - CON PRUEBAS FUNCIONALES
+// PANTALLA ROOSTER - PRUEBAS DE RENDIMIENTO
 // ==============================================
 window.renderRoosterScreen = function() {
   const currentUser = AppState.user.current;
@@ -9,281 +9,280 @@ window.renderRoosterScreen = function() {
     return `<div style="padding: 40px; text-align: center;">Cargando...</div>`;
   }
   
-  // Inicializar Firebase específico de Rooster si existe
-  if (window.RoosterFirebase && !window._roosterFirebaseInitialized) {
-    window.RoosterFirebase.initialize();
-    window._roosterFirebaseInitialized = true;
-  }
-  
-  // HTML de la pantalla
-  const html = `
-    <div class="rooster-screen">
+  return `
+    <div class="rooster-screen" style="min-height: 100vh; background: #f0f0f0;">
       ${window.renderMobileNavBar ? window.renderMobileNavBar() : ''}
       
-      <!-- BARRA DE PRUEBAS SUPERIOR - con IDs únicos -->
-      <div style="position: fixed; top: 70px; left: 0; right: 0; background: #333; color: white; padding: 8px 16px; display: flex; gap: 10px; z-index: 999; overflow-x: auto; white-space: nowrap; flex-wrap: wrap;">
-        <button id="rooster-test-info" style="background: #2196F3; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">🔵 INFO</button>
-        <button id="rooster-test-success" style="background: #4CAF50; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">✅ ÉXITO</button>
-        <button id="rooster-test-warning" style="background: #FF9800; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">⚠️ ADVERTENCIA</button>
-        <button id="rooster-test-error" style="background: #f44336; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">❌ ERROR</button>
+      <div style="padding: 90px 20px 20px 20px; max-width: 1200px; margin: 0 auto;">
         
-        <input type="text" id="rooster-test-input" placeholder="Escribe algo..." style="padding: 8px; border-radius: 4px; border: none; width: 150px;">
-        <button id="rooster-test-showtext" style="background: #9C27B0; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">📝 MOSTRAR</button>
+        <!-- TÍTULO -->
+        <h1 style="color: #333; margin-bottom: 30px; text-align: center;">🐓 ROOSTER - PRUEBAS DE RENDIMIENTO</h1>
         
-        <button id="rooster-test-load" style="background: #FF5722; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">➕ CARGAR 50</button>
-        <button id="rooster-test-clear" style="background: #607D8B; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">🧹 LIMPIAR</button>
-        <button id="rooster-test-reset" style="background: #8B4513; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">🔄 RESET</button>
-      </div>
-      
-      <div class="main-content" style="background: #f5f5f5; min-height: 100vh; padding: 130px 20px 80px 20px;">
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; max-width: 800px; margin: 0 auto;">
-          <div style="font-size: 60px; margin-bottom: 20px; color: #8B4513;">🏆</div>
-          <h2 style="color: #8B4513; margin-bottom: 10px;">SECCIÓN TORNEOS - MODO PRUEBAS</h2>
-          <p style="color: #666;">Bienvenido ${userProfile.displayName || 'Usuario'}</p>
+        <!-- CONTENEDOR PRINCIPAL (EN BLANCO) -->
+        <div id="test-container-rooster" style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); min-height: 500px;">
           
-          <!-- CONTADOR -->
-          <div style="background: white; padding: 10px 20px; border-radius: 20px; margin: 15px 0; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-            Elementos cargados: <span id="rooster-counter">20</span>
+          <!-- INFORMACIÓN DEL USUARIO -->
+          <div style="margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+            <p><strong>Usuario:</strong> ${userProfile.displayName || 'N/A'}</p>
+            <p><strong>UID:</strong> ${currentUser.uid}</p>
+            <p><strong>Pantalla:</strong> Rooster (Pruebas)</p>
           </div>
           
-          <!-- CONTENEDOR DE ELEMENTOS -->
-          <div id="rooster-content" style="width: 100%;">
-            ${Array(20).fill(0).map((_, i) => `
-              <div class="rooster-item" data-id="${i+1}" style="background: white; padding: 20px; margin: 10px 0; border-radius: 8px; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                  <p style="margin: 0; font-weight: bold;">Elemento de torneo #${i+1}</p>
-                  <p style="margin: 5px 0 0; color: #666; font-size: 12px;">ID: T-${Math.floor(Math.random()*1000)}</p>
-                </div>
-                <button class="rooster-delete-btn" data-id="${i+1}" style="background: #f44336; color: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 16px;">✕</button>
-              </div>
-            `).join('')}
+          <!-- BOTONES DE PRUEBA DE RENDIMIENTO -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px;">
+            
+            <!-- BOTÓN 1: Cargar 100 elementos -->
+            <button id="rooster-test-100" style="background: #2196F3; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              📊 Cargar 100 elementos
+            </button>
+            
+            <!-- BOTÓN 2: Cargar 1000 elementos -->
+            <button id="rooster-test-1000" style="background: #4CAF50; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              📈 Cargar 1000 elementos
+            </button>
+            
+            <!-- BOTÓN 3: Cargar 5000 elementos -->
+            <button id="rooster-test-5000" style="background: #FF9800; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              🔥 Cargar 5000 elementos
+            </button>
+            
+            <!-- BOTÓN 4: Liberar memoria -->
+            <button id="rooster-test-clear" style="background: #f44336; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              🧹 Liberar memoria
+            </button>
+            
+            <!-- BOTÓN 5: Medir FPS -->
+            <button id="rooster-test-fps" style="background: #9C27B0; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              📐 Medir FPS (30s)
+            </button>
+            
+            <!-- BOTÓN 6: Stress test -->
+            <button id="rooster-test-stress" style="background: #8B4513; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              ⚡ Stress test (animaciones)
+            </button>
+            
           </div>
+          
+          <!-- ÁREA DE RESULTADOS -->
+          <div id="rooster-results" style="margin: 20px 0; padding: 15px; background: #333; color: #0f0; border-radius: 8px; font-family: monospace; min-height: 60px;">
+            ⏳ Listo para pruebas. Selecciona un botón.
+          </div>
+          
+          <!-- CONTENEDOR PARA ELEMENTOS DE PRUEBA (INICIALMENTE VACÍO) -->
+          <div id="rooster-test-area" style="min-height: 200px; transition: all 0.3s;">
+            <!-- Aquí se inyectarán los elementos de prueba -->
+          </div>
+          
+          <!-- ESTADÍSTICAS EN TIEMPO REAL -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 30px;">
+            <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 12px; color: #666;">ELEMENTOS</div>
+              <div id="rooster-stats-count" style="font-size: 24px; font-weight: bold; color: #2196F3;">0</div>
+            </div>
+            <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 12px; color: #666;">MEMORIA (aprox)</div>
+              <div id="rooster-stats-memory" style="font-size: 24px; font-weight: bold; color: #4CAF50;">0 MB</div>
+            </div>
+            <div style="background: #fff3e0; padding: 15px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 12px; color: #666;">TIEMPO CARGA</div>
+              <div id="rooster-stats-time" style="font-size: 24px; font-weight: bold; color: #FF9800;">0 ms</div>
+            </div>
+            <div style="background: #f3e5f5; padding: 15px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 12px; color: #666;">FPS</div>
+              <div id="rooster-stats-fps" style="font-size: 24px; font-weight: bold; color: #9C27B0;">60</div>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div>
   `;
   
-  // Programar la inicialización de eventos después de que el DOM se actualice
-  setTimeout(() => {
-    initRoosterTestEvents();
-  }, 100);
-  
-  return html;
+  // Inicializar eventos después de renderizar
+  setTimeout(initRoosterTests, 100);
 };
 
 // ==============================================
-// FUNCIÓN PARA INICIALIZAR TODOS LOS EVENTOS DE PRUEBA
+// FUNCIONES DE PRUEBA DE RENDIMIENTO
 // ==============================================
-function initRoosterTestEvents() {
-  console.log("🐓 Inicializando eventos de prueba en Rooster");
+function initRoosterTests() {
+  console.log("🐓 Inicializando pruebas de rendimiento");
   
-  // ===== 1. NOTIFICACIONES =====
-  const infoBtn = document.getElementById('rooster-test-info');
-  if (infoBtn) {
-    infoBtn.onclick = function() { 
-      AppState.addNotification('🔵 Notificación INFO desde Rooster', 'info');
-    };
-  }
+  const testArea = document.getElementById('rooster-test-area');
+  const resultsDiv = document.getElementById('rooster-results');
+  const statsCount = document.getElementById('rooster-stats-count');
+  const statsMemory = document.getElementById('rooster-stats-memory');
+  const statsTime = document.getElementById('rooster-stats-time');
+  const statsFps = document.getElementById('rooster-stats-fps');
   
-  const successBtn = document.getElementById('rooster-test-success');
-  if (successBtn) {
-    successBtn.onclick = function() { 
-      AppState.addNotification('✅ Notificación ÉXITO desde Rooster', 'success');
-    };
-  }
-  
-  const warningBtn = document.getElementById('rooster-test-warning');
-  if (warningBtn) {
-    warningBtn.onclick = function() { 
-      AppState.addNotification('⚠️ Notificación ADVERTENCIA desde Rooster', 'warning');
-    };
-  }
-  
-  const errorBtn = document.getElementById('rooster-test-error');
-  if (errorBtn) {
-    errorBtn.onclick = function() { 
-      AppState.addNotification('❌ Notificación ERROR desde Rooster', 'error');
-    };
-  }
-  
-  // ===== 2. MOSTRAR TEXTO DEL INPUT =====
-  const showTextBtn = document.getElementById('rooster-test-showtext');
-  const textInput = document.getElementById('rooster-test-input');
-  
-  if (showTextBtn && textInput) {
-    showTextBtn.onclick = function() {
-      const text = textInput.value.trim();
-      if (text) {
-        AppState.addNotification(`📝 Texto ingresado: "${text}"`, 'info');
-      } else {
-        AppState.addNotification('⚠️ El campo de texto está vacío', 'warning');
-      }
-    };
-  }
-  
-  // ===== 3. CARGAR 50 ELEMENTOS MÁS =====
-  const loadBtn = document.getElementById('rooster-test-load');
-  const contentDiv = document.getElementById('rooster-content');
-  const counterSpan = document.getElementById('rooster-counter');
-  
-  if (loadBtn && contentDiv && counterSpan) {
-    loadBtn.onclick = function() {
-      const currentItems = document.querySelectorAll('.rooster-item').length;
-      AppState.addNotification('🔄 Cargando 50 elementos...', 'warning');
-      
-      setTimeout(() => {
-        let newHtml = '';
-        for (let i = currentItems + 1; i <= currentItems + 50; i++) {
-          newHtml += `
-            <div class="rooster-item" data-id="${i}" style="background: white; padding: 20px; margin: 10px 0; border-radius: 8px; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.1); animation: fadeIn 0.3s; display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <p style="margin: 0; font-weight: bold;">Elemento de torneo #${i}</p>
-                <p style="margin: 5px 0 0; color: #666; font-size: 12px;">ID: T-${Math.floor(Math.random()*1000)}</p>
-              </div>
-              <button class="rooster-delete-btn" data-id="${i}" style="background: #f44336; color: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 16px;">✕</button>
-            </div>
-          `;
-        }
-        contentDiv.insertAdjacentHTML('beforeend', newHtml);
-        counterSpan.textContent = document.querySelectorAll('.rooster-item').length;
-        AppState.addNotification('✅ 50 elementos cargados', 'success');
-        
-        // Reconfigurar botones de eliminar
-        setupDeleteButtons();
-      }, 500);
-    };
-  }
-  
-  // ===== 4. LIMPIAR ELEMENTOS ADICIONALES =====
-  const clearBtn = document.getElementById('rooster-test-clear');
-  
-  if (clearBtn && contentDiv && counterSpan) {
-    clearBtn.onclick = function() {
-      const items = document.querySelectorAll('.rooster-item');
-      const currentCount = items.length;
-      
-      if (currentCount > 20) {
-        // Eliminar desde el índice 20 hasta el final
-        for (let i = 20; i < items.length; i++) {
-          items[i].remove();
-        }
-        counterSpan.textContent = '20';
-        AppState.addNotification('🧹 Elementos adicionales eliminados (quedan 20)', 'info');
-      } else {
-        AppState.addNotification('⚠️ No hay elementos adicionales para limpiar', 'warning');
-      }
-    };
-  }
-  
-  // ===== 5. RESET (VOLVER A 20 ELEMENTOS) =====
-  const resetBtn = document.getElementById('rooster-test-reset');
-  
-  if (resetBtn && contentDiv && counterSpan) {
-    resetBtn.onclick = function() {
-      AppState.addNotification('🔄 Restableciendo a 20 elementos...', 'warning');
-      
-      // Crear los 20 elementos originales
-      let newHtml = '';
-      for (let i = 1; i <= 20; i++) {
-        newHtml += `
-          <div class="rooster-item" data-id="${i}" style="background: white; padding: 20px; margin: 10px 0; border-radius: 8px; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <p style="margin: 0; font-weight: bold;">Elemento de torneo #${i}</p>
-              <p style="margin: 5px 0 0; color: #666; font-size: 12px;">ID: T-${Math.floor(Math.random()*1000)}</p>
-            </div>
-            <button class="rooster-delete-btn" data-id="${i}" style="background: #f44336; color: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 16px;">✕</button>
-          </div>
-        `;
-      }
-      contentDiv.innerHTML = newHtml;
-      counterSpan.textContent = '20';
-      AppState.addNotification('✅ Restablecido a 20 elementos', 'success');
-      
-      // Reconfigurar botones de eliminar
-      setupDeleteButtons();
-    };
-  }
-  
-  // ===== 6. CONFIGURAR BOTONES DE ELIMINAR =====
-  function setupDeleteButtons() {
-    document.querySelectorAll('.rooster-delete-btn').forEach(btn => {
-      // Eliminar onclick anterior
-      btn.onclick = null;
-      // Asignar nuevo onclick
-      btn.onclick = function(e) {
-        e.stopPropagation();
-        const item = this.closest('.rooster-item');
-        const id = this.dataset.id;
-        
-        if (item) {
-          item.style.animation = 'fadeOut 0.3s';
-          setTimeout(() => {
-            item.remove();
-            if (counterSpan) {
-              counterSpan.textContent = document.querySelectorAll('.rooster-item').length;
-            }
-            AppState.addNotification(`🗑️ Elemento #${id} eliminado`, 'info');
-          }, 200);
-        }
-      };
-    });
-  }
-  
-  // ===== 7. AÑADIR ANIMACIONES CSS =====
-  if (!document.getElementById('rooster-test-styles')) {
-    const style = document.createElement('style');
-    style.id = 'rooster-test-styles';
-    style.textContent = `
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      @keyframes fadeOut {
-        from { opacity: 1; transform: scale(1); }
-        to { opacity: 0; transform: scale(0.9); }
-      }
-    `;
-    document.head.appendChild(style);
-  }
-  
-  // Configurar botones de eliminar iniciales
-  setupDeleteButtons();
-}
-
-// Firebase específico para Rooster
-window.RoosterFirebase = {
-  initialized: false,
-  
-  initialize() {
-    if (this.initialized) return;
-    console.log("🔥 Inicializando Firebase de Rooster");
+  // ===== 1. CARGAR 100 ELEMENTOS =====
+  document.getElementById('rooster-test-100').onclick = function() {
+    const startTime = performance.now();
+    resultsDiv.innerHTML = '⏳ Cargando 100 elementos...';
     
-    // Configuración específica para torneos
-    const roosterConfig = {
-      apiKey: "TU_API_KEY_ROOSTER",
-      authDomain: "tu-proyecto.firebaseapp.com",
-      databaseURL: "https://tu-proyecto.firebaseio.com",
-      projectId: "tu-proyecto",
-      storageBucket: "tu-proyecto.appspot.com",
-      messagingSenderId: "123456789"
-    };
-    
-    // Inicializar solo si no existe ya
-    if (!window.roosterFirebaseApp) {
-      try {
-        window.roosterFirebaseApp = firebase.initializeApp(roosterConfig, "rooster");
-        window.roosterDatabase = window.roosterFirebaseApp.database();
-        console.log("✅ Firebase Rooster inicializado");
-      } catch(e) {
-        console.error("Error inicializando Firebase Rooster:", e);
+    setTimeout(() => {
+      let html = '';
+      for (let i = 1; i <= 100; i++) {
+        html += `<div style="padding: 10px; margin: 5px; background: #e0e0e0; border-radius: 4px; display: inline-block; width: 100px;">Item ${i}</div>`;
       }
+      testArea.innerHTML = html;
+      
+      const endTime = performance.now();
+      const loadTime = (endTime - startTime).toFixed(2);
+      
+      resultsDiv.innerHTML = `✅ 100 elementos cargados en ${loadTime}ms`;
+      statsCount.innerText = '100';
+      statsTime.innerText = loadTime + 'ms';
+      updateMemoryUsage();
+    }, 100);
+  };
+  
+  // ===== 2. CARGAR 1000 ELEMENTOS =====
+  document.getElementById('rooster-test-1000').onclick = function() {
+    const startTime = performance.now();
+    resultsDiv.innerHTML = '⏳ Cargando 1000 elementos...';
+    
+    setTimeout(() => {
+      let html = '';
+      for (let i = 1; i <= 1000; i++) {
+        html += `<div style="padding: 10px; margin: 5px; background: #e0e0e0; border-radius: 4px; display: inline-block; width: 100px;">Item ${i}</div>`;
+      }
+      testArea.innerHTML = html;
+      
+      const endTime = performance.now();
+      const loadTime = (endTime - startTime).toFixed(2);
+      
+      resultsDiv.innerHTML = `✅ 1000 elementos cargados en ${loadTime}ms`;
+      statsCount.innerText = '1000';
+      statsTime.innerText = loadTime + 'ms';
+      updateMemoryUsage();
+    }, 200);
+  };
+  
+  // ===== 3. CARGAR 5000 ELEMENTOS =====
+  document.getElementById('rooster-test-5000').onclick = function() {
+    const startTime = performance.now();
+    resultsDiv.innerHTML = '⏳ Cargando 5000 elementos... (puede tardar)';
+    
+    setTimeout(() => {
+      let html = '';
+      for (let i = 1; i <= 5000; i++) {
+        html += `<div style="padding: 8px; margin: 4px; background: #e0e0e0; border-radius: 4px; display: inline-block; width: 80px; font-size: 10px;">#${i}</div>`;
+      }
+      testArea.innerHTML = html;
+      
+      const endTime = performance.now();
+      const loadTime = (endTime - startTime).toFixed(2);
+      
+      resultsDiv.innerHTML = `✅ 5000 elementos cargados en ${loadTime}ms`;
+      statsCount.innerText = '5000';
+      statsTime.innerText = loadTime + 'ms';
+      updateMemoryUsage();
+    }, 500);
+  };
+  
+  // ===== 4. LIMPIAR / LIBERAR MEMORIA =====
+  document.getElementById('rooster-test-clear').onclick = function() {
+    testArea.innerHTML = '';
+    resultsDiv.innerHTML = '🧹 Memoria liberada. Contenedor vacío.';
+    statsCount.innerText = '0';
+    statsTime.innerText = '0 ms';
+    updateMemoryUsage();
+    
+    if (window.gc) {
+      window.gc();
+      resultsDiv.innerHTML += ' GC ejecutado.';
+    }
+  };
+  
+  // ===== 5. MEDIR FPS =====
+  let fpsInterval = null;
+  document.getElementById('rooster-test-fps').onclick = function() {
+    resultsDiv.innerHTML = '📐 Midiendo FPS por 30 segundos...';
+    
+    let frames = 0;
+    let lastTime = performance.now();
+    let fps = 60;
+    
+    function measureFPS() {
+      frames++;
+      const now = performance.now();
+      const delta = now - lastTime;
+      
+      if (delta >= 1000) {
+        fps = Math.round((frames * 1000) / delta);
+        statsFps.innerText = fps;
+        frames = 0;
+        lastTime = now;
+      }
+      
+      requestAnimationFrame(measureFPS);
     }
     
-    this.initialized = true;
+    // Detener medición anterior si existe
+    if (fpsInterval) {
+      cancelAnimationFrame(fpsInterval);
+    }
+    fpsInterval = requestAnimationFrame(measureFPS);
+    
+    // Detener después de 30 segundos
+    setTimeout(() => {
+      if (fpsInterval) {
+        cancelAnimationFrame(fpsInterval);
+        resultsDiv.innerHTML = `✅ Medición completada. FPS promedio: ${statsFps.innerText}`;
+      }
+    }, 30000);
+  };
+  
+  // ===== 6. STRESS TEST (ANIMACIONES) =====
+  document.getElementById('rooster-test-stress').onclick = function() {
+    resultsDiv.innerHTML = '⚡ Iniciando stress test...';
+    
+    // Cargar 200 elementos con animación
+    let html = '';
+    for (let i = 1; i <= 200; i++) {
+      html += `<div class="stress-item" style="padding: 15px; margin: 10px; background: linear-gradient(45deg, #2196F3, #9C27B0); color: white; border-radius: 8px; animation: pulse 1s infinite; width: 150px; display: inline-block;">Stress ${i}</div>`;
+    }
+    testArea.innerHTML = html;
+    
+    // Añadir estilos de animación
+    if (!document.getElementById('stress-styles')) {
+      const style = document.createElement('style');
+      style.id = 'stress-styles';
+      style.textContent = `
+        @keyframes pulse {
+          0% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.05); opacity: 0.8; }
+          100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+    
+    statsCount.innerText = '200';
+    resultsDiv.innerHTML = '⚡ Stress test activo - 200 elementos animados';
+    updateMemoryUsage();
+  };
+  
+  // ===== ACTUALIZAR ESTIMACIÓN DE MEMORIA =====
+  function updateMemoryUsage() {
+    if (performance.memory) {
+      const memoryMB = (performance.memory.usedJSHeapSize / (1024 * 1024)).toFixed(2);
+      statsMemory.innerText = memoryMB + ' MB';
+    } else {
+      statsMemory.innerText = 'N/A';
+    }
   }
-};
+  
+  // Actualizar memoria cada 2 segundos
+  setInterval(updateMemoryUsage, 2000);
+}
 
 // ==============================================
-// EXPORTAR FUNCIÓN PRINCIPAL
+// EXPORTAR
 // ==============================================
-console.log("✅ rooster.js cargado con PRUEBAS FUNCIONALES");
+console.log("✅ rooster.js (pruebas rendimiento) cargado");
