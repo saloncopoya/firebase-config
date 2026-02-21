@@ -1,5 +1,6 @@
 // ==============================================
-// PANEL DE ADMINISTRACIÓN - SOLO PARA GALLO = TRUE
+// PANEL DE ADMINISTRACIÓN - PRUEBAS DE RENDIMIENTO
+// SOLO PARA GALLO = TRUE
 // ==============================================
 window.renderAdminPanel = async function() {
   const currentUser = AppState.user.current;
@@ -26,56 +27,149 @@ window.renderAdminPanel = async function() {
     window._adminFirebaseInitialized = true;
   }
 
-  // Cargar lista de usuarios para el panel
-  const users = await window.loadAllUsers();
-
   return `
-    <div class="admin-screen">
+    <div class="admin-screen" style="min-height: 100vh; background: #f0f0f0;">
       ${window.renderMobileNavBar ? window.renderMobileNavBar() : ''}
-      <div class="main-content" style="background: #f5f5f5; min-height: 100vh; padding: 90px 20px 80px 20px;">
-        <div style="max-width: 1200px; margin: 0 auto;">
+      
+      <div style="padding: 90px 20px 20px 20px; max-width: 1200px; margin: 0 auto;">
+        
+        <!-- TÍTULO -->
+        <h1 style="color: #333; margin-bottom: 30px; text-align: center;">👑 ADMIN - PRUEBAS DE RENDIMIENTO</h1>
+        
+        <!-- CONTENEDOR PRINCIPAL (EN BLANCO) -->
+        <div id="test-container-admin" style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); min-height: 600px;">
           
-          <!-- Header del admin -->
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-            <div style="display: flex; align-items: center; gap: 16px;">
-              <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #8B4513, #D2691E); display: flex; align-items: center; justify-content: center; color: white; font-size: 30px;">
-                👑
-              </div>
+          <!-- INFORMACIÓN DEL ADMIN -->
+          <div style="margin-bottom: 30px; padding: 20px; background: linear-gradient(135deg, #8B4513, #D2691E); border-radius: 8px; color: white;">
+            <div style="display: flex; align-items: center; gap: 20px;">
+              <div style="width: 60px; height: 60px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px;">👑</div>
               <div>
-                <h2 style="color: #8B4513; margin: 0 0 5px 0;">Panel de Administración</h2>
-                <p style="color: #666; margin: 0;">Bienvenido, <strong>${userProfile.displayName || 'Administrador'}</strong></p>
+                <h2 style="margin: 0 0 5px 0; color: white;">Panel de Administración - MODO PRUEBAS</h2>
+                <p style="margin: 0; opacity: 0.9;"><strong>${userProfile.displayName || 'Administrador'}</strong> (${currentUser.uid})</p>
+                <p style="margin: 5px 0 0; opacity: 0.8; font-size: 14px;">Rol: Administrador Principal</p>
               </div>
             </div>
-            <div style="background: #f0f8ff; padding: 10px 20px; border-radius: 20px; color: #8B4513;">
-              <span style="font-weight: 700;">${users ? users.length : 0}</span> usuarios registrados
+          </div>
+          
+          <!-- BOTONES DE PRUEBA DE RENDIMIENTO - FILA 1 -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px;">
+            
+            <!-- BOTÓN 1: Cargar 100 usuarios -->
+            <button id="admin-test-100" style="background: #2196F3; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              📋 Cargar 100 usuarios
+            </button>
+            
+            <!-- BOTÓN 2: Cargar 1000 usuarios -->
+            <button id="admin-test-1000" style="background: #4CAF50; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              📊 Cargar 1000 usuarios
+            </button>
+            
+            <!-- BOTÓN 3: Cargar 5000 usuarios -->
+            <button id="admin-test-5000" style="background: #FF9800; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              🔥 Cargar 5000 usuarios
+            </button>
+            
+            <!-- BOTÓN 4: Tabla 50x50 -->
+            <button id="admin-test-table" style="background: #f44336; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              📈 Tabla 50x50 (2500 celdas)
+            </button>
+            
+          </div>
+          
+          <!-- BOTONES DE PRUEBA DE RENDIMIENTO - FILA 2 -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px;">
+            
+            <!-- BOTÓN 5: Gráfica de rendimiento -->
+            <button id="admin-test-chart" style="background: #9C27B0; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              📊 Generar gráfica (500 puntos)
+            </button>
+            
+            <!-- BOTÓN 6: Stress test memoria -->
+            <button id="admin-test-memory" style="background: #8B4513; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              💾 Stress test memoria
+            </button>
+            
+            <!-- BOTÓN 7: Medir FPS -->
+            <button id="admin-test-fps" style="background: #00BCD4; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              🎮 Medir FPS (30s)
+            </button>
+            
+            <!-- BOTÓN 8: Limpiar -->
+            <button id="admin-test-clear" style="background: #607D8B; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              🧹 Limpiar todo
+            </button>
+            
+          </div>
+          
+          <!-- BOTONES DE PRUEBA ADICIONALES - FILA 3 -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px;">
+            
+            <!-- BOTÓN 9: Logs en tiempo real -->
+            <button id="admin-test-logs" style="background: #E91E63; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              📝 1000 logs en tiempo real
+            </button>
+            
+            <!-- BOTÓN 10: Checkboxes masivos -->
+            <button id="admin-test-checkboxes" style="background: #3F51B5; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              ☑️ 500 checkboxes
+            </button>
+            
+            <!-- BOTÓN 11: Inputs en vivo -->
+            <button id="admin-test-inputs" style="background: #009688; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              ⌨️ 200 inputs con eventos
+            </button>
+            
+            <!-- BOTÓN 12: Simular carga Cloudinary -->
+            <button id="admin-test-cloudinary" style="background: #FF5722; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+              ☁️ Simular Cloudinary
+            </button>
+            
+          </div>
+          
+          <!-- ÁREA DE RESULTADOS -->
+          <div id="admin-results" style="margin: 20px 0; padding: 15px; background: #333; color: #0f0; border-radius: 8px; font-family: monospace; min-height: 60px; font-size: 14px;">
+            ⏳ Listo para pruebas de rendimiento. Selecciona un botón.
+          </div>
+          
+          <!-- CONTENEDOR PARA ELEMENTOS DE PRUEBA (INICIALMENTE VACÍO) -->
+          <div id="admin-test-area" style="min-height: 300px; max-height: 500px; overflow: auto; border: 1px solid #ddd; border-radius: 8px; padding: 20px; background: #fafafa;">
+            <!-- Aquí se inyectarán los elementos de prueba -->
+            <div style="text-align: center; color: #999; padding: 50px;">
+              ↑ Selecciona un botón de prueba para comenzar ↑
             </div>
           </div>
-
-          <!-- Tabs de navegación admin -->
-          <div style="display: flex; gap: 10px; margin-bottom: 20px; background: white; padding: 10px; border-radius: 12px; overflow-x: auto;">
-            <button onclick="window.showAdminTab('usuarios')" class="admin-tab ${window.currentAdminTab === 'usuarios' ? 'active' : ''}" style="padding: 12px 20px; background: ${window.currentAdminTab === 'usuarios' ? '#8B4513' : 'transparent'}; color: ${window.currentAdminTab === 'usuarios' ? 'white' : '#666'}; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
-              👥 Usuarios
-            </button>
-            <button onclick="window.showAdminTab('activaciones')" class="admin-tab ${window.currentAdminTab === 'activaciones' ? 'active' : ''}" style="padding: 12px 20px; background: ${window.currentAdminTab === 'activaciones' ? '#8B4513' : 'transparent'}; color: ${window.currentAdminTab === 'activaciones' ? 'white' : '#666'}; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
-              ⏳ Activaciones pendientes
-            </button>
-            <button onclick="window.showAdminTab('contenido')" class="admin-tab ${window.currentAdminTab === 'contenido' ? 'active' : ''}" style="padding: 12px 20px; background: ${window.currentAdminTab === 'contenido' ? '#8B4513' : 'transparent'}; color: ${window.currentAdminTab === 'contenido' ? 'white' : '#666'}; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
-              📊 Contenido
-            </button>
-            <button onclick="window.showAdminTab('estadisticas')" class="admin-tab ${window.currentAdminTab === 'estadisticas' ? 'active' : ''}" style="padding: 12px 20px; background: ${window.currentAdminTab === 'estadisticas' ? '#8B4513' : 'transparent'}; color: ${window.currentAdminTab === 'estadisticas' ? 'white' : '#666'}; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
-              📈 Estadísticas
-            </button>
+          
+          <!-- ESTADÍSTICAS EN TIEMPO REAL -->
+          <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin-top: 30px;">
+            <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 12px; color: #666;">ELEMENTOS</div>
+              <div id="admin-stats-count" style="font-size: 20px; font-weight: bold; color: #2196F3;">0</div>
+            </div>
+            <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 12px; color: #666;">MEMORIA (aprox)</div>
+              <div id="admin-stats-memory" style="font-size: 20px; font-weight: bold; color: #4CAF50;">0 MB</div>
+            </div>
+            <div style="background: #fff3e0; padding: 15px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 12px; color: #666;">TIEMPO CARGA</div>
+              <div id="admin-stats-time" style="font-size: 20px; font-weight: bold; color: #FF9800;">0 ms</div>
+            </div>
+            <div style="background: #f3e5f5; padding: 15px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 12px; color: #666;">FPS</div>
+              <div id="admin-stats-fps" style="font-size: 20px; font-weight: bold; color: #9C27B0;">60</div>
+            </div>
+            <div style="background: #ffebee; padding: 15px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 12px; color: #666;">OPS</div>
+              <div id="admin-stats-ops" style="font-size: 20px; font-weight: bold; color: #f44336;">0</div>
+            </div>
           </div>
-
-          <!-- Contenido dinámico según tab -->
-          <div id="admin-content">
-            ${window.renderAdminUsersList(users)}
-          </div>
-
+          
         </div>
       </div>
     </div>
   `;
+  
+  // Inicializar eventos después de renderizar
+  setTimeout(initAdminTests, 100);
 };
 
 // ==============================================
@@ -97,8 +191,13 @@ window.AdminFirebase = {
     };
     
     if (!window.adminFirebaseApp) {
-      window.adminFirebaseApp = firebase.initializeApp(adminFirebaseConfig, "admin");
-      window.adminDatabase = window.adminFirebaseApp.database();
+      try {
+        window.adminFirebaseApp = firebase.initializeApp(adminFirebaseConfig, "admin");
+        window.adminDatabase = window.adminFirebaseApp.database();
+        console.log("✅ Firebase Admin inicializado");
+      } catch(e) {
+        console.error("Error inicializando Firebase Admin:", e);
+      }
     }
     
     this.initialized = true;
@@ -106,343 +205,445 @@ window.AdminFirebase = {
 };
 
 // ==============================================
-// VARIABLES GLOBALES DE ADMIN
+// FUNCIONES DE PRUEBA DE RENDIMIENTO
 // ==============================================
-window.currentAdminTab = 'usuarios';
-
-// ==============================================
-// FUNCIONES PARA CARGAR DATOS
-// ==============================================
-
-window.loadAllUsers = async function() {
-  try {
-    const database = AppState.firebase.database;
-    if (!database) return [];
+function initAdminTests() {
+  console.log("👑 Inicializando pruebas de rendimiento en Admin");
+  
+  const testArea = document.getElementById('admin-test-area');
+  const resultsDiv = document.getElementById('admin-results');
+  const statsCount = document.getElementById('admin-stats-count');
+  const statsMemory = document.getElementById('admin-stats-memory');
+  const statsTime = document.getElementById('admin-stats-time');
+  const statsFps = document.getElementById('admin-stats-fps');
+  const statsOps = document.getElementById('admin-stats-ops');
+  
+  let operationCount = 0;
+  let fpsInterval = null;
+  
+  // ===== 1. CARGAR 100 USUARIOS =====
+  document.getElementById('admin-test-100').onclick = function() {
+    const startTime = performance.now();
+    resultsDiv.innerHTML = '⏳ Cargando 100 usuarios simulados...';
     
-    const snapshot = await database.ref('users').once('value');
-    if (snapshot.exists()) {
-      const users = [];
-      snapshot.forEach(child => {
-        users.push({ uid: child.key, ...child.val() });
+    setTimeout(() => {
+      let html = '<table style="width:100%; border-collapse:collapse;">';
+      html += '<tr style="background:#f0f0f0;"><th>ID</th><th>Nombre</th><th>Email</th><th>Estado</th><th>Rol</th></tr>';
+      
+      for (let i = 1; i <= 100; i++) {
+        const status = i % 3 === 0 ? 'ACTIVO' : (i % 3 === 1 ? 'PENDIENTE' : 'INACTIVO');
+        const role = i % 5 === 0 ? 'ADMIN' : (i % 4 === 0 ? 'JUEZ' : 'USUARIO');
+        html += `<tr style="border-bottom:1px solid #eee;">
+          <td style="padding:8px;">${i}</td>
+          <td style="padding:8px;">Usuario ${i}</td>
+          <td style="padding:8px;">usuario${i}@test.com</td>
+          <td style="padding:8px;"><span style="background:${status === 'ACTIVO' ? '#4CAF50' : (status === 'PENDIENTE' ? '#FF9800' : '#f44336')}; color:white; padding:2px 8px; border-radius:10px;">${status}</span></td>
+          <td style="padding:8px;">${role}</td>
+        </tr>`;
+      }
+      html += '</table>';
+      
+      testArea.innerHTML = html;
+      
+      const endTime = performance.now();
+      const loadTime = (endTime - startTime).toFixed(2);
+      
+      resultsDiv.innerHTML = `✅ 100 usuarios cargados en ${loadTime}ms`;
+      statsCount.innerText = '100';
+      statsTime.innerText = loadTime + 'ms';
+      operationCount++;
+      statsOps.innerText = operationCount;
+      updateMemory();
+    }, 200);
+  };
+  
+  // ===== 2. CARGAR 1000 USUARIOS =====
+  document.getElementById('admin-test-1000').onclick = function() {
+    const startTime = performance.now();
+    resultsDiv.innerHTML = '⏳ Cargando 1000 usuarios simulados...';
+    
+    setTimeout(() => {
+      let html = '<div style="font-family:monospace; font-size:12px;">';
+      
+      for (let i = 1; i <= 1000; i++) {
+        html += `<div style="padding:5px; border-bottom:1px solid #eee; display:flex; gap:10px;">
+          <span style="width:50px;">#${i}</span>
+          <span style="width:150px;">Usuario ${i}</span>
+          <span style="width:200px;">usuario${i}@test.com</span>
+          <span style="width:80px; background:${i % 2 === 0 ? '#4CAF50' : '#FF9800'}; color:white; padding:2px 5px; border-radius:4px;">${i % 2 === 0 ? 'ACTIVO' : 'PENDIENTE'}</span>
+        </div>`;
+      }
+      html += '</div>';
+      
+      testArea.innerHTML = html;
+      
+      const endTime = performance.now();
+      const loadTime = (endTime - startTime).toFixed(2);
+      
+      resultsDiv.innerHTML = `✅ 1000 usuarios cargados en ${loadTime}ms`;
+      statsCount.innerText = '1000';
+      statsTime.innerText = loadTime + 'ms';
+      operationCount++;
+      statsOps.innerText = operationCount;
+      updateMemory();
+    }, 400);
+  };
+  
+  // ===== 3. CARGAR 5000 USUARIOS =====
+  document.getElementById('admin-test-5000').onclick = function() {
+    const startTime = performance.now();
+    resultsDiv.innerHTML = '⏳ Cargando 5000 usuarios... (puede tardar)';
+    
+    setTimeout(() => {
+      let html = '<div style="display:grid; grid-template-columns:repeat(5,1fr); gap:5px;">';
+      
+      for (let i = 1; i <= 5000; i++) {
+        html += `<div style="background:#f5f5f5; padding:5px; border-radius:4px; font-size:10px; text-align:center;">
+          <div><strong>U${i}</strong></div>
+          <div style="color:#666;">${i % 3 === 0 ? '✓' : '○'}</div>
+        </div>`;
+      }
+      html += '</div>';
+      
+      testArea.innerHTML = html;
+      
+      const endTime = performance.now();
+      const loadTime = (endTime - startTime).toFixed(2);
+      
+      resultsDiv.innerHTML = `✅ 5000 usuarios cargados en ${loadTime}ms`;
+      statsCount.innerText = '5000';
+      statsTime.innerText = loadTime + 'ms';
+      operationCount++;
+      statsOps.innerText = operationCount;
+      updateMemory();
+    }, 800);
+  };
+  
+  // ===== 4. TABLA 50x50 =====
+  document.getElementById('admin-test-table').onclick = function() {
+    const startTime = performance.now();
+    resultsDiv.innerHTML = '⏳ Generando tabla 50x50...';
+    
+    setTimeout(() => {
+      let html = '<table style="width:100%; border-collapse:collapse; font-size:10px;">';
+      
+      // Encabezados
+      html += '<tr style="background:#8B4513; color:white;">';
+      for (let col = 0; col <= 50; col++) {
+        html += `<th style="padding:5px; border:1px solid #ddd;">${col === 0 ? '#' : 'C' + col}</th>`;
+      }
+      html += '</tr>';
+      
+      // Filas
+      for (let row = 1; row <= 50; row++) {
+        html += '<tr>';
+        html += `<td style="padding:5px; border:1px solid #ddd; background:#f0f0f0; font-weight:bold;">R${row}</td>`;
+        for (let col = 1; col <= 50; col++) {
+          const value = Math.floor(Math.random() * 1000);
+          html += `<td style="padding:5px; border:1px solid #ddd; text-align:center;">${value}</td>`;
+        }
+        html += '</tr>';
+      }
+      html += '</table>';
+      
+      testArea.innerHTML = html;
+      
+      const endTime = performance.now();
+      const loadTime = (endTime - startTime).toFixed(2);
+      
+      resultsDiv.innerHTML = `✅ Tabla 50x50 (2500 celdas) generada en ${loadTime}ms`;
+      statsCount.innerText = '2500 celdas';
+      statsTime.innerText = loadTime + 'ms';
+      operationCount++;
+      statsOps.innerText = operationCount;
+      updateMemory();
+    }, 300);
+  };
+  
+  // ===== 5. GRÁFICA DE RENDIMIENTO =====
+  document.getElementById('admin-test-chart').onclick = function() {
+    const startTime = performance.now();
+    resultsDiv.innerHTML = '⏳ Generando gráfica con 500 puntos...';
+    
+    setTimeout(() => {
+      let html = '<div style="height:300px; position:relative; background:#f8f9fa; padding:20px;">';
+      
+      // Simular gráfica de barras
+      for (let i = 1; i <= 20; i++) {
+        const height = Math.floor(Math.random() * 150) + 50;
+        html += `<div style="position:absolute; bottom:20px; left:${i * 35}px; width:25px; height:${height}px; background:${i % 2 === 0 ? '#2196F3' : '#FF9800'}; border-radius:4px 4px 0 0; text-align:center; color:white; font-size:10px; padding-top:5px;">${height}</div>`;
+      }
+      
+      // Líneas de puntos
+      html += '<svg width="100%" height="200" style="position:absolute; top:50px; left:0;">';
+      let points = '';
+      for (let i = 0; i <= 500; i++) {
+        const x = i * 2;
+        const y = 150 - Math.sin(i * 0.1) * 50 + Math.cos(i * 0.05) * 30;
+        points += `${x},${y} `;
+      }
+      html += `<polyline points="${points}" style="fill:none;stroke:#4CAF50;stroke-width:2" />`;
+      html += '</svg>';
+      
+      html += '</div>';
+      
+      testArea.innerHTML = html;
+      
+      const endTime = performance.now();
+      const loadTime = (endTime - startTime).toFixed(2);
+      
+      resultsDiv.innerHTML = `✅ Gráfica generada en ${loadTime}ms`;
+      statsTime.innerText = loadTime + 'ms';
+      operationCount++;
+      statsOps.innerText = operationCount;
+      updateMemory();
+    }, 350);
+  };
+  
+  // ===== 6. STRESS TEST MEMORIA =====
+  document.getElementById('admin-test-memory').onclick = function() {
+    resultsDiv.innerHTML = '💾 Iniciando stress test de memoria...';
+    
+    // Crear muchos objetos para probar memoria
+    const objetos = [];
+    for (let i = 0; i < 10000; i++) {
+      objetos.push({
+        id: i,
+        nombre: `Objeto ${i}`,
+        data: new Array(100).fill('test data').join(''),
+        timestamp: Date.now(),
+        aleatorio: Math.random()
       });
-      return users.sort((a, b) => (b.registeredAt || 0) - (a.registeredAt || 0));
     }
-    return [];
-  } catch (error) {
-    console.error("Error cargando usuarios:", error);
-    return [];
-  }
-};
-
-// ==============================================
-// RENDERIZADO DE LISTA DE USUARIOS
-// ==============================================
-
-window.renderAdminUsersList = function(users = []) {
-  const pendingUsers = users.filter(u => u.activated === false);
+    
+    // Mostrar algunos en el área de prueba
+    let html = '<div style="max-height:300px; overflow-y:auto;">';
+    html += '<h4>10000 objetos creados en memoria</h4>';
+    for (let i = 0; i < 50; i++) {
+      html += `<div style="padding:5px; border-bottom:1px solid #eee;">Objeto #${i}: ${JSON.stringify(objetos[i]).substring(0, 100)}...</div>`;
+    }
+    html += '<div style="padding:10px; background:#f0f0f0;">... y 9950 objetos más en memoria</div>';
+    html += '</div>';
+    
+    testArea.innerHTML = html;
+    
+    resultsDiv.innerHTML = `💾 Stress test completado. 10000 objetos en memoria.`;
+    statsCount.innerText = '10000 obj';
+    operationCount++;
+    statsOps.innerText = operationCount;
+    updateMemory();
+    
+    // Forzar garbage collection si está disponible
+    if (window.gc) {
+      setTimeout(() => {
+        window.gc();
+        resultsDiv.innerHTML += ' GC ejecutado.';
+      }, 1000);
+    }
+  };
   
-  return `
-    <div style="background: white; border-radius: 12px; padding: 20px;">
+  // ===== 7. MEDIR FPS =====
+  document.getElementById('admin-test-fps').onclick = function() {
+    resultsDiv.innerHTML = '🎮 Midiendo FPS por 30 segundos...';
+    
+    let frames = 0;
+    let lastTime = performance.now();
+    let fps = 60;
+    
+    function measureFPS() {
+      frames++;
+      const now = performance.now();
+      const delta = now - lastTime;
       
-      <!-- Buscador -->
-      <div style="margin-bottom: 20px;">
-        <input type="text" id="userSearch" placeholder="🔍 Buscar usuario por nombre, email o teléfono..." 
-               onkeyup="window.filterUsers()"
-               style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
-      </div>
+      if (delta >= 1000) {
+        fps = Math.round((frames * 1000) / delta);
+        statsFps.innerText = fps;
+        frames = 0;
+        lastTime = now;
+      }
       
-      <!-- Estadísticas rápidas -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 25px;">
-        <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; text-align: center;">
-          <div style="font-size: 24px; color: #8B4513; margin-bottom: 5px;">${users.length}</div>
-          <div style="font-size: 13px; color: #666;">Total usuarios</div>
-        </div>
-        <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; text-align: center;">
-          <div style="font-size: 24px; color: #ff9800; margin-bottom: 5px;">${pendingUsers.length}</div>
-          <div style="font-size: 13px; color: #666;">Pendientes</div>
-        </div>
-        <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; text-align: center;">
-          <div style="font-size: 24px; color: #42b72a; margin-bottom: 5px;">${users.filter(u => u.activated === true).length}</div>
-          <div style="font-size: 13px; color: #666;">Activos</div>
-        </div>
-        <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; text-align: center;">
-          <div style="font-size: 24px; color: #9c27b0; margin-bottom: 5px;">${users.filter(u => u.gallo === true).length}</div>
-          <div style="font-size: 13px; color: #666;">Admins</div>
-        </div>
-      </div>
-      
-      <!-- Lista de usuarios -->
-      <div id="users-list-container">
-        <table style="width: 100%; border-collapse: collapse;">
-          <thead>
-            <tr style="background: #f8f9fa; border-bottom: 2px solid #ddd;">
-              <th style="padding: 12px; text-align: left;">Usuario</th>
-              <th style="padding: 12px; text-align: left;">Contacto</th>
-              <th style="padding: 12px; text-align: left;">Estado</th>
-              <th style="padding: 12px; text-align: left;">Rol</th>
-              <th style="padding: 12px; text-align: left;">Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="users-table-body">
-            ${users.map(user => window.renderUserRow(user)).join('')}
-          </tbody>
-        </table>
-      </div>
-      
-    </div>
-  `;
-};
-
-window.renderUserRow = function(user) {
-  const fechaRegistro = user.registeredAt ? new Date(user.registeredAt).toLocaleDateString() : 'Desconocido';
+      requestAnimationFrame(measureFPS);
+    }
+    
+    // Detener medición anterior si existe
+    if (fpsInterval) {
+      cancelAnimationFrame(fpsInterval);
+    }
+    fpsInterval = requestAnimationFrame(measureFPS);
+    
+    // Detener después de 30 segundos
+    setTimeout(() => {
+      if (fpsInterval) {
+        cancelAnimationFrame(fpsInterval);
+        resultsDiv.innerHTML = `✅ Medición completada. FPS promedio: ${statsFps.innerText}`;
+      }
+    }, 30000);
+  };
   
-  return `
-    <tr style="border-bottom: 1px solid #eee;" data-user-id="${user.uid}" data-user-name="${user.displayName || ''}" data-user-email="${user.realEmail || ''}" data-user-phone="${user.phone || ''}">
-      <td style="padding: 12px;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #8B4513, #D2691E); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
-            ${window.getInitials ? window.getInitials(user.displayName) : 'U'}
+  // ===== 8. LIMPIAR TODO =====
+  document.getElementById('admin-test-clear').onclick = function() {
+    testArea.innerHTML = '<div style="text-align: center; color: #999; padding: 50px;">↑ Selecciona un botón de prueba para comenzar ↑</div>';
+    resultsDiv.innerHTML = '🧹 Área de pruebas limpiada. Memoria liberada.';
+    statsCount.innerText = '0';
+    statsTime.innerText = '0 ms';
+    operationCount = 0;
+    statsOps.innerText = '0';
+    updateMemory();
+    
+    if (window.gc) {
+      window.gc();
+      resultsDiv.innerHTML += ' GC ejecutado.';
+    }
+  };
+  
+  // ===== 9. LOGS EN TIEMPO REAL =====
+  let logInterval;
+  document.getElementById('admin-test-logs').onclick = function() {
+    resultsDiv.innerHTML = '📝 Generando logs en tiempo real...';
+    
+    // Limpiar intervalo anterior
+    if (logInterval) clearInterval(logInterval);
+    
+    let logCount = 0;
+    testArea.innerHTML = '<div id="log-container" style="height:300px; overflow-y:auto; background:#1e1e1e; color:#0f0; padding:10px; font-family:monospace; font-size:12px;"></div>';
+    const logContainer = document.getElementById('log-container');
+    
+    logInterval = setInterval(() => {
+      logCount++;
+      const logEntry = document.createElement('div');
+      logEntry.textContent = `[${new Date().toLocaleTimeString()}] LOG #${logCount}: Operación de prueba completada - Memoria: ${statsMemory.innerText} - FPS: ${statsFps.innerText}`;
+      logContainer.appendChild(logEntry);
+      logContainer.scrollTop = logContainer.scrollHeight;
+      
+      statsCount.innerText = logCount;
+      operationCount++;
+      statsOps.innerText = operationCount;
+      
+      if (logCount >= 1000) {
+        clearInterval(logInterval);
+        resultsDiv.innerHTML = '✅ 1000 logs generados';
+      }
+    }, 50);
+  };
+  
+  // ===== 10. 500 CHECKBOXES =====
+  document.getElementById('admin-test-checkboxes').onclick = function() {
+    const startTime = performance.now();
+    resultsDiv.innerHTML = '⏳ Generando 500 checkboxes...';
+    
+    setTimeout(() => {
+      let html = '<div style="display:grid; grid-template-columns:repeat(10,1fr); gap:5px; max-height:400px; overflow-y:auto;">';
+      
+      for (let i = 1; i <= 500; i++) {
+        html += `<div style="padding:5px; background:#f5f5f5; border-radius:4px;">
+          <label style="display:flex; align-items:center; gap:5px; cursor:pointer;">
+            <input type="checkbox" onchange="AppState.addNotification('Checkbox #${i} ' + (this.checked ? '✓' : '○'), 'info')">
+            <span style="font-size:11px;">Item ${i}</span>
+          </label>
+        </div>`;
+      }
+      html += '</div>';
+      
+      testArea.innerHTML = html;
+      
+      const endTime = performance.now();
+      const loadTime = (endTime - startTime).toFixed(2);
+      
+      resultsDiv.innerHTML = `✅ 500 checkboxes generados en ${loadTime}ms`;
+      statsCount.innerText = '500';
+      statsTime.innerText = loadTime + 'ms';
+      operationCount++;
+      statsOps.innerText = operationCount;
+      updateMemory();
+    }, 250);
+  };
+  
+  // ===== 11. 200 INPUTS CON EVENTOS =====
+  document.getElementById('admin-test-inputs').onclick = function() {
+    const startTime = performance.now();
+    resultsDiv.innerHTML = '⏳ Generando 200 inputs con eventos...';
+    
+    setTimeout(() => {
+      let html = '<div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px; max-height:400px; overflow-y:auto;">';
+      
+      for (let i = 1; i <= 200; i++) {
+        html += `<div style="padding:10px; background:#f5f5f5; border-radius:4px;">
+          <div style="font-size:11px; margin-bottom:5px;">Input #${i}</div>
+          <input type="text" id="input-${i}" placeholder="Escribe algo..." 
+                 oninput="document.getElementById('admin-results').innerHTML = '⌨️ Input #${i}: ' + this.value"
+                 style="width:100%; padding:5px; border:1px solid #ddd; border-radius:4px;">
+        </div>`;
+      }
+      html += '</div>';
+      
+      testArea.innerHTML = html;
+      
+      const endTime = performance.now();
+      const loadTime = (endTime - startTime).toFixed(2);
+      
+      resultsDiv.innerHTML = `✅ 200 inputs generados en ${loadTime}ms`;
+      statsCount.innerText = '200';
+      statsTime.innerText = loadTime + 'ms';
+      operationCount++;
+      statsOps.innerText = operationCount;
+      updateMemory();
+    }, 300);
+  };
+  
+  // ===== 12. SIMULAR CLOUDINARY =====
+  document.getElementById('admin-test-cloudinary').onclick = function() {
+    const startTime = performance.now();
+    resultsDiv.innerHTML = '☁️ Simulando carga de Cloudinary...';
+    
+    setTimeout(() => {
+      let html = '<div style="display:grid; grid-template-columns:repeat(5,1fr); gap:15px;">';
+      
+      // Simular 50 imágenes de Cloudinary
+      for (let i = 1; i <= 50; i++) {
+        const randomColor = Math.floor(Math.random()*16777215).toString(16);
+        html += `<div style="text-align:center;">
+          <div style="width:100%; padding-bottom:100%; background: linear-gradient(135deg, #${randomColor}, #${randomColor.substring(0,4)}); border-radius:8px; margin-bottom:5px; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">
+            ${i}
           </div>
-          <div>
-            <div style="font-weight: 600; color: #333;">${user.displayName || 'Sin nombre'}</div>
-            <div style="font-size: 12px; color: #999;">${fechaRegistro}</div>
-          </div>
-        </div>
-      </td>
-      <td style="padding: 12px;">
-        <div style="font-size: 13px;">${user.realEmail || '—'}</div>
-        <div style="font-size: 12px; color: #666;">${user.phone || '—'}</div>
-      </td>
-      <td style="padding: 12px;">
-        <span style="background: ${user.activated ? '#42b72a' : '#ff9800'}; color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;">
-          ${user.activated ? 'ACTIVADO' : 'PENDIENTE'}
-        </span>
-      </td>
-      <td style="padding: 12px;">
-        <div style="display: flex; flex-direction: column; gap: 4px;">
-          ${user.gallo ? '<span style="background: #8B4513; color: white; padding: 2px 6px; border-radius: 10px; font-size: 11px; width: fit-content;">👑 ADMIN</span>' : ''}
-          ${user.isJudge ? '<span style="background: #2196f3; color: white; padding: 2px 6px; border-radius: 10px; font-size: 11px; width: fit-content;">⚖️ JUEZ</span>' : ''}
-          ${user.publicaciones ? '<span style="background: #4caf50; color: white; padding: 2px 6px; border-radius: 10px; font-size: 11px; width: fit-content;">📱 PUB</span>' : ''}
-          ${user.pedigri ? '<span style="background: #9c27b0; color: white; padding: 2px 6px; border-radius: 10px; font-size: 11px; width: fit-content;">🧬 PED</span>' : ''}
-        </div>
-      </td>
-      <td style="padding: 12px;">
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <button onclick="window.toggleUserActivation('${user.uid}', ${!user.activated})" style="background: ${user.activated ? '#ff9800' : '#42b72a'}; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">
-            ${user.activated ? 'Desactivar' : 'Activar'}
-          </button>
-          <button onclick="window.toggleUserGallo('${user.uid}', ${!user.gallo})" style="background: ${user.gallo ? '#d32f2f' : '#8B4513'}; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">
-            ${user.gallo ? 'Quitar Admin' : 'Hacer Admin'}
-          </button>
-          <button onclick="window.showUserDetails('${user.uid}')" style="background: #2196f3; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">
-            Detalles
-          </button>
-        </div>
-      </td>
-    </tr>
-  `;
-};
-
-// ==============================================
-// FUNCIONES DE ADMIN (GLOBALES)
-// ==============================================
-
-window.toggleUserActivation = async function(uid, activate) {
-  const userProfile = AppState.user.profile;
-  if (!userProfile || userProfile.gallo !== true) {
-    AppState.addNotification('No tienes permisos', 'error');
-    return;
-  }
-  
-  try {
-    await AppState.firebase.database.ref(`users/${uid}/activated`).set(activate);
-    AppState.addNotification(`Usuario ${activate ? 'activado' : 'desactivado'}`, 'success');
-    
-    // Recargar la lista
-    const users = await window.loadAllUsers();
-    document.getElementById('users-table-body').innerHTML = users.map(u => window.renderUserRow(u)).join('');
-  } catch (error) {
-    console.error('Error:', error);
-    AppState.addNotification('Error al cambiar estado', 'error');
-  }
-};
-
-window.toggleUserGallo = async function(uid, setGallo) {
-  const userProfile = AppState.user.profile;
-  if (!userProfile || userProfile.gallo !== true) {
-    AppState.addNotification('No tienes permisos', 'error');
-    return;
-  }
-  
-  try {
-    await AppState.firebase.database.ref(`users/${uid}/gallo`).set(setGallo);
-    AppState.addNotification(`Usuario ${setGallo ? 'ahora es ADMIN' : 'ya no es admin'}`, 'success');
-    
-    // Recargar la lista
-    const users = await window.loadAllUsers();
-    document.getElementById('users-table-body').innerHTML = users.map(u => window.renderUserRow(u)).join('');
-  } catch (error) {
-    console.error('Error:', error);
-    AppState.addNotification('Error al cambiar rol', 'error');
-  }
-};
-
-window.toggleUserJudge = async function(uid, setJudge) {
-  const userProfile = AppState.user.profile;
-  if (!userProfile || userProfile.gallo !== true) {
-    AppState.addNotification('No tienes permisos', 'error');
-    return;
-  }
-  
-  try {
-    await AppState.firebase.database.ref(`users/${uid}/isJudge`).set(setJudge);
-    AppState.addNotification(`Usuario ${setJudge ? 'ahora es JUEZ' : 'ya no es juez'}`, 'success');
-    
-    // Recargar la lista
-    const users = await window.loadAllUsers();
-    document.getElementById('users-table-body').innerHTML = users.map(u => window.renderUserRow(u)).join('');
-  } catch (error) {
-    console.error('Error:', error);
-    AppState.addNotification('Error al cambiar rol', 'error');
-  }
-};
-
-window.toggleUserPublicaciones = async function(uid, setPublicaciones) {
-  const userProfile = AppState.user.profile;
-  if (!userProfile || userProfile.gallo !== true) return;
-  
-  try {
-    await AppState.firebase.database.ref(`users/${uid}/publicaciones`).set(setPublicaciones);
-    AppState.addNotification(`Acceso a Publicaciones ${setPublicaciones ? 'activado' : 'desactivado'}`, 'success');
-    
-    const users = await window.loadAllUsers();
-    document.getElementById('users-table-body').innerHTML = users.map(u => window.renderUserRow(u)).join('');
-  } catch (error) {
-    AppState.addNotification('Error', 'error');
-  }
-};
-
-window.toggleUserPedigri = async function(uid, setPedigri) {
-  const userProfile = AppState.user.profile;
-  if (!userProfile || userProfile.gallo !== true) return;
-  
-  try {
-    await AppState.firebase.database.ref(`users/${uid}/pedigri`).set(setPedigri);
-    AppState.addNotification(`Acceso a Pedigrí ${setPedigri ? 'activado' : 'desactivado'}`, 'success');
-    
-    const users = await window.loadAllUsers();
-    document.getElementById('users-table-body').innerHTML = users.map(u => window.renderUserRow(u)).join('');
-  } catch (error) {
-    AppState.addNotification('Error', 'error');
-  }
-};
-
-window.showUserDetails = async function(uid) {
-  const users = await window.loadAllUsers();
-  const user = users.find(u => u.uid === uid);
-  
-  if (!user) return;
-  
-  const modal = document.createElement('div');
-  modal.style.cssText = `
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-  `;
-  
-  modal.innerHTML = `
-    <div style="background: white; border-radius: 16px; width: 90%; max-width: 500px; padding: 24px; max-height: 80vh; overflow-y: auto;">
-      <h3 style="color: #8B4513; margin-bottom: 20px;">Detalles del usuario</h3>
+          <div style="font-size:10px;">cloudinary/img_${i}</div>
+          <div style="font-size:9px; color:#666;">${(Math.random() * 100).toFixed(1)} KB</div>
+        </div>`;
+      }
+      html += '</div>';
       
-      <div style="margin-bottom: 20px; text-align: center;">
-        <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #8B4513, #D2691E); margin: 0 auto; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px;">
-          ${window.getInitials ? window.getInitials(user.displayName) : 'U'}
-        </div>
-      </div>
+      testArea.innerHTML = html;
       
-      <table style="width: 100%;">
-        <tr><td style="padding: 8px 0; color: #666;">UID:</td><td style="padding: 8px 0;"><code>${user.uid}</code></td></tr>
-        <tr><td style="padding: 8px 0; color: #666;">Nombre:</td><td style="padding: 8px 0;"><strong>${user.displayName || '—'}</strong></td></tr>
-        <tr><td style="padding: 8px 0; color: #666;">Email:</td><td style="padding: 8px 0;">${user.realEmail || '—'}</td></tr>
-        <tr><td style="padding: 8px 0; color: #666;">Teléfono:</td><td style="padding: 8px 0;">${user.phone || '—'}</td></tr>
-        <tr><td style="padding: 8px 0; color: #666;">Municipio:</td><td style="padding: 8px 0;">${user.municipio || '—'}</td></tr>
-        <tr><td style="padding: 8px 0; color: #666;">Partido:</td><td style="padding: 8px 0;">${user.partyName || '—'}</td></tr>
-        <tr><td style="padding: 8px 0; color: #666;">Representante:</td><td style="padding: 8px 0;">${user.representative || '—'}</td></tr>
-        <tr><td style="padding: 8px 0; color: #666;">Registro:</td><td style="padding: 8px 0;">${new Date(user.registeredAt).toLocaleString()}</td></tr>
-      </table>
+      const endTime = performance.now();
+      const loadTime = (endTime - startTime).toFixed(2);
       
-      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px;">
-        <button onclick="window.toggleUserActivation('${user.uid}', ${!user.activated})" style="flex:1; background: ${user.activated ? '#ff9800' : '#42b72a'}; color: white; border: none; padding: 10px; border-radius: 4px; cursor: pointer;">
-          ${user.activated ? 'Desactivar' : 'Activar'}
-        </button>
-        <button onclick="window.toggleUserGallo('${user.uid}', ${!user.gallo})" style="flex:1; background: ${user.gallo ? '#d32f2f' : '#8B4513'}; color: white; border: none; padding: 10px; border-radius: 4px; cursor: pointer;">
-          ${user.gallo ? 'Quitar Admin' : 'Hacer Admin'}
-        </button>
-      </div>
-      
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;">
-        <button onclick="window.toggleUserJudge('${user.uid}', ${!user.isJudge})" style="background: ${user.isJudge ? '#d32f2f' : '#2196f3'}; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer;">
-          ${user.isJudge ? 'Quitar Juez' : 'Hacer Juez'}
-        </button>
-        <button onclick="window.toggleUserPublicaciones('${user.uid}', ${!user.publicaciones})" style="background: ${user.publicaciones ? '#d32f2f' : '#4caf50'}; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer;">
-          ${user.publicaciones ? 'Quitar Publis' : 'Dar Publis'}
-        </button>
-        <button onclick="window.toggleUserPedigri('${user.uid}', ${!user.pedigri})" style="background: ${user.pedigri ? '#d32f2f' : '#9c27b0'}; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer;">
-          ${user.pedigri ? 'Quitar Pedigrí' : 'Dar Pedigrí'}
-        </button>
-        <button onclick="modal.remove()" style="background: #f0f2f5; color: #333; border: none; padding: 8px; border-radius: 4px; cursor: pointer;">
-          Cerrar
-        </button>
-      </div>
-    </div>
-  `;
+      resultsDiv.innerHTML = `✅ 50 imágenes simuladas de Cloudinary en ${loadTime}ms`;
+      statsCount.innerText = '50 img';
+      statsTime.innerText = loadTime + 'ms';
+      operationCount++;
+      statsOps.innerText = operationCount;
+      updateMemory();
+    }, 400);
+  };
   
-  document.body.appendChild(modal);
-};
-
-window.filterUsers = function() {
-  const searchTerm = document.getElementById('userSearch')?.value.toLowerCase() || '';
-  const rows = document.querySelectorAll('#users-table-body tr');
-  
-  rows.forEach(row => {
-    const name = row.getAttribute('data-user-name')?.toLowerCase() || '';
-    const email = row.getAttribute('data-user-email')?.toLowerCase() || '';
-    const phone = row.getAttribute('data-user-phone')?.toLowerCase() || '';
-    
-    if (name.includes(searchTerm) || email.includes(searchTerm) || phone.includes(searchTerm)) {
-      row.style.display = '';
+  // ===== ACTUALIZAR ESTIMACIÓN DE MEMORIA =====
+  function updateMemory() {
+    if (performance.memory) {
+      const memoryMB = (performance.memory.usedJSHeapSize / (1024 * 1024)).toFixed(2);
+      statsMemory.innerText = memoryMB + ' MB';
     } else {
-      row.style.display = 'none';
+      // Estimación aproximada basada en elementos
+      const elementCount = testArea.children.length;
+      statsMemory.innerText = (elementCount * 0.1).toFixed(2) + ' MB (est)';
     }
-  });
-};
-
-window.showAdminTab = function(tab) {
-  window.currentAdminTab = tab;
+  }
   
-  // Actualizar estilos de tabs
-  document.querySelectorAll('.admin-tab').forEach(btn => {
-    btn.style.background = 'transparent';
-    btn.style.color = '#666';
-  });
-  
-  event.target.style.background = '#8B4513';
-  event.target.style.color = 'white';
-  
-  // Aquí iría la lógica para cambiar el contenido según el tab
-  AppState.addNotification(`Tab ${tab} - En construcción`, 'info');
-};
+  // Actualizar memoria cada 2 segundos
+  setInterval(updateMemory, 2000);
+}
 
 // ==============================================
 // EXPORTAR FUNCIÓN PRINCIPAL
 // ==============================================
-window.renderAdminPanel = renderAdminPanel;
-window.renderAdminScreen = renderAdminPanel;
-console.log("✅ admin.js cargado - Modo EN BLANCO con Firebase+Cloudinary");
+window.renderAdminPanel = window.renderAdminPanel;
+window.renderAdminScreen = window.renderAdminPanel;
+console.log("✅ admin.js cargado - MODO PRUEBAS DE RENDIMIENTO");
