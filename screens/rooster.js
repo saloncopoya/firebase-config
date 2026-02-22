@@ -7,7 +7,7 @@ window.renderRoosterScreen = function() {
   
   // ===== SEGURIDAD: Usuario no logueado =====
   if (!currentUser) {
-    return `<div style="padding: 40px; text-align: center; color: #666;">
+    return `<div style="min-height: 100vh; background: #f8f9fa;">
       🔒 Debes iniciar sesión para ver esta sección
     </div>`;
   }
