@@ -13,7 +13,7 @@ window.renderRoosterScreen = function() {
     <div class="rooster-screen" style="min-height: 100vh; background: #f0f0f0;">
       ${window.renderMobileNavBar ? window.renderMobileNavBar() : ''}
       
-      <div style="padding: 90px 20px 20px 20px; max-width: 1200px; margin: 0 auto;">
+      <div style="padding: 0px 20px 20px 20px; max-width: 1200px; margin: 0 auto;">
         
         <!-- TÍTULO -->
         <h1 style="color: #333; margin-bottom: 30px; text-align: center;">🐓 ROOSTER - PRUEBAS DE RENDIMIENTO</h1>
