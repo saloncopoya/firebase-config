@@ -9,7 +9,7 @@ window.renderAdminPanel = async function() {
   if (!currentUser || !userProfile || userProfile.gallo !== true) {
     console.warn("🚫 Intento de acceso a admin sin permisos");
     return `
-      <div style="padding: 40px; text-align: center; min-height: 100vh; background: #f5f5f5;">
+      <div style="min-height: 100vh; background: #f8f9fa;">
         <div style="background: white; padding: 30px; border-radius: 12px; max-width: 400px; margin: 50px auto; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
           <div style="font-size: 60px; margin-bottom: 20px; color: #d32f2f;">⛔</div>
           <h2 style="color: #d32f2f; margin-bottom: 10px;">Acceso Denegado</h2>
