@@ -32,7 +32,7 @@ window.renderAdminPanel = async function() {
   return `
     <div class="admin-screen">
       ${window.renderMobileNavBar ? window.renderMobileNavBar() : ''}
-      <div class="main-content" style="background: #f5f5f5; min-height: 100vh; padding: 90px 20px 80px 20px;">
+      <div class="main-content" style="min-height: 100vh; background: #f8f9fa;">
         <div style="max-width: 1200px; margin: 0 auto;">
           
           <!-- ============================================== -->
