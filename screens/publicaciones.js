@@ -6,11 +6,11 @@ window.renderPublicacionesScreen = function() {
   const userProfile = AppState.user.profile;
   
   if (!currentUser || !userProfile) {
-    return `<div style="padding: 40px; text-align: center;">Cargando...</div>`;
+    return `<div style="min-height: 100vh; background: #f8f9fa;">Cargando...</div>`;
   }
   
   return `
-    <div class="publicaciones-screen" style="min-height: 100vh; background: #f0f2f5;">
+    <div class="publicaciones-screen" style="min-height: 100vh; background: #f8f9fa;">
       ${window.renderMobileNavBar ? window.renderMobileNavBar() : ''}
       
       <div style="padding: 90px 20px 20px 20px; max-width: 600px; margin: 0 auto;">
