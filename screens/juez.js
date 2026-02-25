@@ -101,92 +101,15 @@
       `;
     }
     
-    // ===== INTERFAZ WINDOWS CON MARCADOR VISUAL =====
+    // ===== CONTENEDOR VISUAL =====
     return `
-      <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px;">
-        
-        <!-- VENTANA PRINCIPAL ESTILO WINDOWS -->
-        <div style="max-width: 1200px; margin: 0 auto; background: white; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; border: 1px solid rgba(255,255,255,0.2);">
-          
-          <!-- BARRA DE TÍTULO WINDOWS -->
-          <div style="background: #2c3e50; color: white; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #3498db;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <span style="font-size: 20px;">🪟</span>
-              <span style="font-weight: 600; letter-spacing: 0.5px;">SISTEMA DE GESTIÓN JUDICIAL - WINDOWS EDITION</span>
-            </div>
-            <div style="display: flex; gap: 15px;">
-              <span style="cursor: pointer; opacity: 0.8;">─</span>
-              <span style="cursor: pointer; opacity: 0.8;">□</span>
-              <span style="cursor: pointer; opacity: 0.8; color: #e74c3c;">✕</span>
-            </div>
-          </div>
-          
-          <!-- BARRA DE HERRAMIENTAS -->
-          <div style="background: #ecf0f1; padding: 10px 20px; border-bottom: 1px solid #bdc3c7; display: flex; gap: 20px; flex-wrap: wrap;">
-            <span style="color: #2c3e50; cursor: pointer;">📁 Archivo</span>
-            <span style="color: #2c3e50; cursor: pointer;">✏️ Editar</span>
-            <span style="color: #2c3e50; cursor: pointer;">👁️ Ver</span>
-            <span style="color: #2c3e50; cursor: pointer;">🔧 Herramientas</span>
-            <span style="color: #2c3e50; cursor: pointer;">❓ Ayuda</span>
-          </div>
+      
           
           <!-- MARCADOR VISUAL PRINCIPAL -->
           <div style="background: #f1c40f; color: #2c3e50; text-align: center; padding: 15px; font-weight: bold; font-size: 24px; letter-spacing: 2px; border-bottom: 3px dashed #e67e22; text-transform: uppercase; animation: pulse 2s infinite;">
             ⚠️ AQUÍ VA EL CONTENIDO VISUAL ⚠️
           </div>
           
-          <!-- ÁREA DE CONTENIDO PRINCIPAL -->
-          <div style="padding: 30px; background: #f9f9f9;">
-            
-            <!-- SEGUNDO MARCADOR VISUAL -->
-            <div style="background: #3498db; color: white; padding: 20px; border-radius: 8px; margin-bottom: 30px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 5px solid #f1c40f;">
-              <h3 style="margin: 0; font-size: 18px;">🔷 ÁREA DE TRABAJO PRINCIPAL 🔷</h3>
-              <p style="margin: 10px 0 0 0; opacity: 0.9; font-size: 14px;">AQUÍ VA EL CONTENIDO VISUAL - SECCIÓN PRINCIPAL</p>
-            </div>
-            
-            <!-- TERCER MARCADOR VISUAL (más sutil) -->
-            <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 2px dashed #95a5a6; text-align: center;">
-              <span style="color: #7f8c8d; font-size: 14px; text-transform: uppercase;">⬇️ AQUÍ VA EL CONTENIDO VISUAL - ÁREA SECUNDARIA ⬇️</span>
-            </div>
-            
-            <!-- GRID DE CONTENIDO (ejemplo) -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-              <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <h4 style="color: #2c3e50; margin-top: 0; border-bottom: 2px solid #3498db; padding-bottom: 10px;">📊 Panel 1</h4>
-                <p style="color: #666;">AQUÍ VA EL CONTENIDO VISUAL - MÓDULO 1</p>
-              </div>
-              <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <h4 style="color: #2c3e50; margin-top: 0; border-bottom: 2px solid #e74c3c; padding-bottom: 10px;">📈 Panel 2</h4>
-                <p style="color: #666;">AQUÍ VA EL CONTENIDO VISUAL - MÓDULO 2</p>
-              </div>
-              <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <h4 style="color: #2c3e50; margin-top: 0; border-bottom: 2px solid #27ae60; padding-bottom: 10px;">⚖️ Panel 3</h4>
-                <p style="color: #666;">AQUÍ VA EL CONTENIDO VISUAL - MÓDULO 3</p>
-              </div>
-            </div>
-            
-            <!-- MARCADOR VISUAL FINAL -->
-            <div style="margin-top: 30px; background: #34495e; color: white; padding: 15px; border-radius: 5px; text-align: center; font-style: italic;">
-              <span style="font-size: 16px;">📌 AQUÍ VA EL CONTENIDO VISUAL - PIE DE PÁGINA 📌</span>
-            </div>
-          </div>
-          
-          <!-- BARRA DE ESTADO WINDOWS -->
-          <div style="background: #2c3e50; color: white; padding: 8px 20px; font-size: 12px; display: flex; justify-content: space-between; border-top: 1px solid #34495e;">
-            <span>🔒 Sistema Protegido v${CONFIG.VERSION}</span>
-            <span>👤 ${u?.name || 'Usuario'} (Juez)</span>
-            <span>🕒 ${new Date().toLocaleString()}</span>
-          </div>
-        </div>
-        
-        <style>
-          @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.8; background: #f39c12; }
-            100% { opacity: 1; }
-          }
-        </style>
-      </div>
     `;
   };
   
