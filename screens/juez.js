@@ -1,8 +1,5 @@
 // ==============================================
-// juez.js - SEGURIDAD NIVEL SENIOR v3.0 (WINDOWS EDITION)
-// ==============================================
-// PROTEGE: Dominio, modificación, debugging, copia, inyección
-// ==============================================
+// juez.js - SEGURIDAD NIVEL SENIOR
 
 (function() {
   'use strict';
@@ -107,7 +104,7 @@
           
           <!-- MARCADOR VISUAL PRINCIPAL -->
           <div style="background: #f1c40f; color: #2c3e50; text-align: center; padding: 15px; font-weight: bold; font-size: 24px; letter-spacing: 2px; border-bottom: 3px dashed #e67e22; text-transform: uppercase; animation: pulse 2s infinite;">
-            ⚠️ AQUÍ VA EL CONTENIDO VISUAL ⚠️
+            ⚠️ AQUÍ VA EL CONTENIDO VISUAL DE JUEZ ⚠️
           </div>
           
     `;
