@@ -6,7 +6,7 @@
   
   // ===== CONFIGURACIÓN =====
   const CONFIG = {
-    DOMINIO_AUTORIZADO: 'https://1cmbt-2211-94b-omega.blogspot.com',
+    DOMINIO_AUTORIZADO: 'https://cmbt-2211-94b-omega.blogspot.com',
     VERSION: '3.0.0',
     HASH_INTEGRIDAD: 'a7c3b1f9e8d4a2f5c6b7e8d9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0',
     TOKEN_EXPIRACION: 3600000,
