@@ -6,7 +6,7 @@
   
   // ===== CONFIGURACIÓN =====
   const CONFIG = {
-    DOMINIO_AUTORIZADO: 'https://cmbt-2211-94b-omega.blogspot.com',
+    DOMINIO_AUTORIZADO: 'https://1cmbt-2211-94b-omega.blogspot.com',
     VERSION: '3.0.0',
     HASH_INTEGRIDAD: 'a7c3b1f9e8d4a2f5c6b7e8d9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0',
     TOKEN_EXPIRACION: 3600000,
@@ -104,7 +104,27 @@
           
           <!-- MARCADOR VISUAL PRINCIPAL -->
           <div style="background: #f1c40f; color: #2c3e50; text-align: center; padding: 15px; font-weight: bold; font-size: 24px; letter-spacing: 2px; border-bottom: 3px dashed #e67e22; text-transform: uppercase; animation: pulse 2s infinite;">
-            ⚠️ AQUÍ VA EL CONTENIDO VISUAL DE JUEZ ⚠️
+            ⚠️ AQUÍ VA EL CONTENIDO VISUAL DE JUEZ1 ⚠️
+          </div>
+             <!-- MARCADOR VISUAL PRINCIPAL -->
+          <div style="background: #f1c40f; color: #2c3e50; text-align: center; padding: 15px; font-weight: bold; font-size: 24px; letter-spacing: 2px; border-bottom: 3px dashed #e67e22; text-transform: uppercase; animation: pulse 2s infinite;">
+            ⚠️ AQUÍ VA EL CONTENIDO VISUAL DE JUEZ1 ⚠️
+          </div>
+             <!-- MARCADOR VISUAL PRINCIPAL -->
+          <div style="background: #f1c40f; color: #2c3e50; text-align: center; padding: 15px; font-weight: bold; font-size: 24px; letter-spacing: 2px; border-bottom: 3px dashed #e67e22; text-transform: uppercase; animation: pulse 2s infinite;">
+            ⚠️ AQUÍ VA EL CONTENIDO VISUAL DE JUEZ1 ⚠️
+          </div>
+             <!-- MARCADOR VISUAL PRINCIPAL -->
+          <div style="background: #f1c40f; color: #2c3e50; text-align: center; padding: 15px; font-weight: bold; font-size: 24px; letter-spacing: 2px; border-bottom: 3px dashed #e67e22; text-transform: uppercase; animation: pulse 2s infinite;">
+            ⚠️ AQUÍ VA EL CONTENIDO VISUAL DE JUEZ1 ⚠️
+          </div>
+             <!-- MARCADOR VISUAL PRINCIPAL -->
+          <div style="background: #f1c40f; color: #2c3e50; text-align: center; padding: 15px; font-weight: bold; font-size: 24px; letter-spacing: 2px; border-bottom: 3px dashed #e67e22; text-transform: uppercase; animation: pulse 2s infinite;">
+            ⚠️ AQUÍ VA EL CONTENIDO VISUAL DE JUEZ1 ⚠️
+          </div>
+             <!-- MARCADOR VISUAL PRINCIPAL -->
+          <div style="background: #f1c40f; color: #2c3e50; text-align: center; padding: 15px; font-weight: bold; font-size: 24px; letter-spacing: 2px; border-bottom: 3px dashed #e67e22; text-transform: uppercase; animation: pulse 2s infinite;">
+            ⚠️ AQUÍ VA EL CONTENIDO VISUAL DE JUEZ1 ⚠️
           </div>
           
     `;
