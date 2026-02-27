@@ -1,96 +1,104 @@
-// sw.js - Service Worker con soporte offline completo
-const CACHE_NAME = 'legado-avicola-v1';
+// sw.js - Service Worker para Blogger
+const CACHE_NAME = 'legado-avicola-v3';
+const BLOG_URL = 'https://cmbt-2211-94b-omega.blogspot.com';
+
+// Archivos a cachear
 const urlsToCache = [
-  '/firebase-config/',
-  '/firebase-config/index.html',
-  'https://cmbt-2211-94b-omega.blogspot.com/',
+  BLOG_URL, // La página principal de tu blog
+  BLOG_URL + '/', // Con slash
+  '/firebase-config/offline.html',
   'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap',
   'https://fonts.gstatic.com'
 ];
 
-// Instalación: cachear recursos estáticos
+// Instalación
 self.addEventListener('install', event => {
-  console.log('📦 Instalando Service Worker y cacheando recursos');
+  console.log('📦 Instalando SW...');
+  self.skipWaiting(); // Activar inmediatamente
+  
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('✅ Cache abierto');
-        return cache.addAll(urlsToCache);
-      })
-      .catch(error => {
-        console.error('❌ Error en instalación:', error);
+        console.log('✅ Cacheando URLs...');
+        return cache.addAll(urlsToCache).catch(err => {
+          console.error('Error cacheando:', err);
+          // Continuar aunque falle alguna URL
+        });
       })
   );
-  // Forzar activación inmediata
-  self.skipWaiting();
 });
 
-// Activación: limpiar caches antiguos
+// Activación
 self.addEventListener('activate', event => {
-  console.log('🚀 Activando Service Worker');
+  console.log('🚀 Activando SW...');
   event.waitUntil(
-    caches.keys().then(cacheNames => {
+    caches.keys().then(keys => {
       return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('🗑️ Eliminando cache antiguo:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
+        keys.filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
       );
     })
   );
-  // Tomar control inmediato de todas las páginas
-  self.clients.claim();
+  self.clients.claim(); // Tomar control inmediato
 });
 
-// Estrategia: Stale-While-Revalidate (primero cache, luego red)
+// Interceptar peticiones
 self.addEventListener('fetch', event => {
-  console.log('🌐 Interceptando petición:', event.request.url);
+  const url = new URL(event.request.url);
   
-  // Ignorar peticiones que no sean GET o de otros dominios si quieres
-  if (event.request.method !== 'GET') return;
+  // Si es la página de Blogger, usar estrategia especial
+  if (url.href.includes('cmbt-2211-94b-omega.blogspot.com') || 
+      url.pathname === '/' || 
+      url.pathname === '') {
+    
+    event.respondWith(
+      caches.match(event.request)
+        .then(response => {
+          if (response) {
+            console.log('✅ Sirviendo blog desde cache');
+            return response;
+          }
+          
+          // Si no está en cache, ir a la red
+          return fetch(event.request)
+            .then(networkResponse => {
+              // Cachear para futuras visitas offline
+              const responseClone = networkResponse.clone();
+              caches.open(CACHE_NAME)
+                .then(cache => cache.put(event.request, responseClone));
+              return networkResponse;
+            })
+            .catch(error => {
+              console.log('📴 Offline - mostrando página offline');
+              return caches.match('/firebase-config/offline.html');
+            });
+        })
+    );
+    return;
+  }
   
+  // Para otros recursos (imágenes, CSS, JS)
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        if (response) {
-          console.log('✅ Sirviendo desde cache:', event.request.url);
-          // Actualizar cache en segundo plano
-          fetch(event.request)
-            .then(newResponse => {
-              if (newResponse && newResponse.status === 200) {
-                caches.open(CACHE_NAME)
-                  .then(cache => cache.put(event.request, newResponse));
-              }
-            })
-            .catch(() => console.log('📴 Offline - usando cache'));
-          
-          return response;
-        }
+        if (response) return response;
         
-        // Si no está en cache, ir a la red
-        console.log('🌍 Buscando en red:', event.request.url);
         return fetch(event.request)
-          .then(response => {
-            // Guardar en cache para futuras visitas
-            if (response && response.status === 200) {
-              const responseToCache = response.clone();
+          .then(networkResponse => {
+            // Solo cachear recursos exitosos
+            if (networkResponse && networkResponse.status === 200) {
+              const responseClone = networkResponse.clone();
               caches.open(CACHE_NAME)
-                .then(cache => cache.put(event.request, responseToCache));
+                .then(cache => cache.put(event.request, responseClone));
             }
-            return response;
+            return networkResponse;
           })
-          .catch(error => {
-            console.log('❌ Error en fetch:', error);
-            // Aquí puedes devolver una página offline personalizada
-            if (event.request.mode === 'navigate') {
-              return caches.match('/firebase-config/offline.html');
+          .catch(() => {
+            // Si falla y es una imagen, devolver imagen por defecto
+            if (event.request.url.match(/\.(jpg|jpeg|png|gif|svg)$/)) {
+              return new Response('Imagen no disponible offline', { status: 200 });
             }
-            return new Response('Estás offline', {
-              status: 503,
-              statusText: 'Service Unavailable'
-            });
+            return new Response('Recurso no disponible offline', { status: 200 });
           });
       })
   );
