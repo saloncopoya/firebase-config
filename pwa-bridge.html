@@ -1,22 +1,70 @@
 <!DOCTYPE html>
 <html>
-<head><title>PWA Bridge</title></head>
+<head>
+    <title>PWA Bridge - Legado Avícola</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 <body>
 <script>
 // Este script se ejecuta en el contexto de github.io
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    // Registra el SW usando la URL completa de github.io
-    navigator.serviceWorker.register('/firebase-config/sw.js', { scope: '/firebase-config/' })
-      .then(reg => {
-        console.log('✅ SW registrado desde bridge');
-        // Envía un mensaje de vuelta a la página de Blogger para que sepa que el SW está listo
-        if (window.parent) {
-          window.parent.postMessage('sw-ready', 'https://cmbt-2211-94b-omega.blogspot.com');
-        }
-      })
-      .catch(err => console.error('❌ Error en bridge:', err));
-  });
+    window.addEventListener('load', function() {
+        console.log('🔄 Iniciando registro del Service Worker desde bridge');
+        
+        // Registrar el SW con opciones mejoradas
+        navigator.serviceWorker.register('/firebase-config/sw.js', { 
+            scope: '/firebase-config/' 
+        })
+        .then(reg => {
+            console.log('✅ SW registrado desde bridge');
+            
+            // Verificar si hay actualizaciones
+            reg.addEventListener('updatefound', () => {
+                const newWorker = reg.installing;
+                console.log('🆕 Nueva versión del SW detectada');
+                
+                newWorker.addEventListener('statechange', () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                        console.log('🔄 Nueva versión lista para activarse');
+                        // Notificar a la página que hay una nueva versión
+                        if (window.parent) {
+                            window.parent.postMessage('sw-update-available', 'https://cmbt-2211-94b-omega.blogspot.com');
+                        }
+                    }
+                });
+            });
+            
+            // Enviar mensaje de que el SW está listo
+            if (window.parent) {
+                window.parent.postMessage('sw-ready', 'https://cmbt-2211-94b-omega.blogspot.com');
+            }
+            
+            // Verificar conectividad
+            setInterval(() => {
+                if (navigator.onLine) {
+                    if (window.parent) {
+                        window.parent.postMessage('online-status:true', 'https://cmbt-2211-94b-omega.blogspot.com');
+                    }
+                } else {
+                    if (window.parent) {
+                        window.parent.postMessage('online-status:false', 'https://cmbt-2211-94b-omega.blogspot.com');
+                    }
+                }
+            }, 3000);
+        })
+        .catch(err => {
+            console.error('❌ Error en bridge:', err);
+            if (window.parent) {
+                window.parent.postMessage('sw-error:' + err.message, 'https://cmbt-2211-94b-omega.blogspot.com');
+            }
+        });
+    });
+} else {
+    console.warn('⚠️ Service Workers no soportados');
+    if (window.parent) {
+        window.parent.postMessage('sw-not-supported', 'https://cmbt-2211-94b-omega.blogspot.com');
+    }
 }
 </script>
 </body>
