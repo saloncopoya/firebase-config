@@ -1,0 +1,30 @@
+{
+  "name": "Legado Avicola2 - Social",
+  "short_name": "Legado Avicola2",
+  "id": "legado_avicola_v1",
+  "description": "Conéctate con amigos y el mundo en esta red social",
+  "start_url": "https://cmbt-2211-94b-omega.blogspot.com/",
+  "scope": "https://cmbt-2211-94b-omega.blogspot.com/",
+  "display": "fullscreen",
+  "orientation": "portrait-primary",
+  "background_color": "#8B4513",
+  "theme_color": "#8B4513",
+  "categories": ["social", "entertainment"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhlUahiOL_GA-zwariPkNYbtWbIhGYnJfTu9M0RAxeb0J-LBVOqfR4-HKai2LtdTavQlyPYsbAAUZillcM3KrSET9hqjMqrS6mB1KWGshq386SJdn-Oh7H8oBkWjsNWSsoPcTFNrOYT4RnPY5lLjdHoUrjPeBVpi4spk_FMsRm9T4KBRinrRM_E1MeyACyN/s1600/abrir.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhlUahiOL_GA-zwariPkNYbtWbIhGYnJfTu9M0RAxeb0J-LBVOqfR4-HKai2LtdTavQlyPYsbAAUZillcM3KrSET9hqjMqrS6mB1KWGshq386SJdn-Oh7H8oBkWjsNWSsoPcTFNrOYT4RnPY5lLjdHoUrjPeBVpi4spk_FMsRm9T4KBRinrRM_E1MeyACyN/s1600/abrir.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [ ... ], // El resto de tus shortcuts
+  "screenshots": [ ... ]
+}
