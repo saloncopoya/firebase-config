@@ -25,6 +25,44 @@
       "purpose": "any maskable"
     }
   ],
-  "shortcuts": [ ... ], // El resto de tus shortcuts
-  "screenshots": [ ... ]
-}
+  
+      "shortcuts": [
+        {
+          "name": "Mi Perfil",
+          "short_name": "Mi-Perfil",
+          "description": "Ver mi perfil",
+          "url": "https://cmbt-2211-94b-omega.blogspot.com/?section=profile",
+          "icons": [{ "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjVNrdIQGfVQIHnHn-l7k9MqCiz70SS2dw07ieHP3LzI7phF5tt5C4sByI78iFQQjYq8Dir3cy7NAExruCcpg5z_Xs-iKboUb7QTBpEVS-CPvx9DHqN7kJFVl-4exJEU7YnMwiPRqnvzq3we2YX_9f9invA40qqQzpw7vnoN17FrHuyQ8rxpEX5kocEfAal/s1600/descargar.png", "sizes": "96x96" }]
+        },
+        {
+          "name": "Pedigri",
+          "short_name": "Gallos-Pedigri",
+          "description": "Ver mis gallos",
+          "url": "https://cmbt-2211-94b-omega.blogspot.com/?section=perfil",
+          "icons": [{ "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjVNrdIQGfVQIHnHn-l7k9MqCiz70SS2dw07ieHP3LzI7phF5tt5C4sByI78iFQQjYq8Dir3cy7NAExruCcpg5z_Xs-iKboUb7QTBpEVS-CPvx9DHqN7kJFVl-4exJEU7YnMwiPRqnvzq3we2YX_9f9invA40qqQzpw7vnoN17FrHuyQ8rxpEX5kocEfAal/s1600/descargar.png", "sizes": "96x96" }]
+        },
+  {
+          "name": "home",
+          "short_name": "Publicar...",
+          "description": "Ver mis gallos",
+          "url": "https://cmbt-2211-94b-omega.blogspot.com/?section=rooster",
+          "icons": [{ "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjVTUDeD4YQxMEWsXkhZ2mnO82aqrR_lwolu4iWD2xUyPhcIzkxvavkKbJKKpPx8j0j6lqxabXj9jamHQKPZaonxlO9Hiytdedp19-_FbnC9fMVj9xMuN6zdus-S80uuMY8SjP62lHBfQWrBBdWNVoqiXh-hzM7cy9NN0esgVsr4T9aTABkotd33RApm_ap/s1600/home.png", "sizes": "96x96" }]
+        },
+        {
+          "name": "TORNEO",
+          "short_name": "Seguimiento-Torneo",
+          "description": "Ver Torneo en linea",
+          "url": "https://cmbt-2211-94b-omega.blogspot.com/?section=pedigri",
+          "icons": [{ "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEitZ_TcRizRoIsLISs9ld91TJfzPrvFqNUMMTcs5LHlqWbyiQEqk8enePapd99BJt3ASYoYbZ2ocmdug9JO2qOenKU-vxON42NuuFaaROinFgNpUdF75SwNXXgrqNeXd4glxk_27BOLHkugxlWrCQeX1MZPmp3QLUjxljs1rIqrucM1R-o37HTZEehFAe39/s1600/trofeo.png", "sizes": "96x96" }]
+        }
+      ],
+
+      "screenshots": [
+        {
+          "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhlUahiOL_GA-zwariPkNYbtWbIhGYnJfTu9M0RAxeb0J-LBVOqfR4-HKai2LtdTavQlyPYsbAAUZillcM3KrSET9hqjMqrS6mB1KWGshq386SJdn-Oh7H8oBkWjsNWSsoPcTFNrOYT4RnPY5lLjdHoUrjPeBVpi4spk_FMsRm9T4KBRinrRM_E1MeyACyN/s1600/abrir.jpg",
+          "sizes": "1280x720",
+          "type": "image/jpeg",
+          "form_factor": "wide"
+        }
+      ]
+    }
