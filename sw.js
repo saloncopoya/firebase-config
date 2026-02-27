@@ -1,11 +1,11 @@
-// sw.js - Service Worker para Legado Avícola
+// sw.js
 self.addEventListener('install', e => {
-  console.log('✅ SW instalado');
+  console.log('✅ SW INSTALADO');
   self.skipWaiting();
 });
 
 self.addEventListener('activate', e => {
-  console.log('✅ SW activado');
+  console.log('✅ SW ACTIVADO');
   e.waitUntil(clients.claim());
 });
 
