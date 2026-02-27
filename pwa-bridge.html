@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>PWA Bridge</title></head>
+<body>
+<script>
+// Este script se ejecuta en el contexto de github.io
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    // Registra el SW usando la URL completa de github.io
+    navigator.serviceWorker.register('/firebase-config/sw.js', { scope: '/firebase-config/' })
+      .then(reg => {
+        console.log('✅ SW registrado desde bridge');
+        // Envía un mensaje de vuelta a la página de Blogger para que sepa que el SW está listo
+        if (window.parent) {
+          window.parent.postMessage('sw-ready', 'https://cmbt-2211-94b-omega.blogspot.com');
+        }
+      })
+      .catch(err => console.error('❌ Error en bridge:', err));
+  });
+}
+</script>
+</body>
+</html>
