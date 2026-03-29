@@ -1,3 +1,4 @@
+
 const dominiosPermitidos = [
     'cmbt-2211-94b-omega.blogspot.com',
     'localhost',
@@ -7,10 +8,7 @@ const dominiosPermitidos = [
 const dominioActual = window.location.hostname;
 const dominioPermitido = dominiosPermitidos.includes(dominioActual);
 
-if (!dominioPermitido) {
-    console.error(`🚫 Dominio: ${dominioActual}`);
-    window.FIREBASE_CONFIG = null;
-} else {
+if (dominioPermitido) {
     window.FIREBASE_CONFIG = {
         apiKey: "AIzaSyASox7mRak5V0py29htEVWCVeipGpA0yfs",
         authDomain: "galloslivebadge.firebaseapp.com",
@@ -19,6 +17,8 @@ if (!dominioPermitido) {
         messagingSenderId: "979482928760",
         appId: "1:979482928760:web:3ea879dc4ee1e020df6f8d"
     };
-    
-    console.log('✅ Servidor Conectado');
+    console.log('✅ Configuración de Firebase cargada desde GitHub');
+} else {
+    console.error(`🚫 Dominio no autorizado: ${dominioActual}`);
+    window.FIREBASE_CONFIG = null;
 }
