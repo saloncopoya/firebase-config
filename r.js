@@ -1,13 +1,12 @@
-
-const dominiosPermitidos = [
+const dominiosPermitidosRooster = [
     'cmbt-2211-94b-omega.blogspot.com',
     'legadoavicola.blogspot.com'
 ];
 
-const dominioActual = window.location.hostname;
-const dominioPermitido = dominiosPermitidos.includes(dominioActual);
+const dominioActualRooster = window.location.hostname;
+const dominioPermitidoRooster = dominiosPermitidosRooster.includes(dominioActualRooster);
 
-if (dominioPermitido) {
+if (dominioPermitidoRooster) {
     window.FIREBASE_ROOSTER_CONFIG = {
         apiKey: "AIzaSyBMON_hBlUJfE-_L6qrt8MEP6JZrculRcs",
         authDomain: "premiumcotejosgallistico-59e76.firebaseapp.com",
@@ -17,7 +16,7 @@ if (dominioPermitido) {
         messagingSenderId: "785051078042",
         appId: "1:785051078042:web:8e749ba849c5e7e5407e23"
     };
-    console.log('✅ Servidor Rooster conectado.');
+    console.log('✅ Servidor Rooster.');
 } else {
     window.FIREBASE_ROOSTER_CONFIG = null;
 }
