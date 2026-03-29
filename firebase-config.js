@@ -20,7 +20,7 @@ if (dominioPermitido) {
         messagingSenderId: "979482928760",
         appId: "1:979482928760:web:3ea879dc4ee1e020df6f8d"
     };
-    console.log('✅ Configuración de Firebase cargada desde GitHub');
+    console.log('✅ Servidor conectado.');
 } else {
     // SI NO ES TU DOMINIO, NO CARGA NADA
     window.FIREBASE_CONFIG = null;
