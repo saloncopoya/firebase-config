@@ -1,6 +1,6 @@
 
 const dominiosPermitidos = [
-    'cmbt-2211-94b-omega1.blogspot.com',
+    'cmbt-2211-94b-omega.blogspot.com',
     'legadoavicola.blogspot.com'
 ];
 
