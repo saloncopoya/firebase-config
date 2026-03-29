@@ -24,5 +24,4 @@ if (dominioPermitido) {
 } else {
     // SI NO ES TU DOMINIO, NO CARGA NADA
     window.FIREBASE_CONFIG = null;
-    console.error(`🚫 ACCESO DENEGADO - Dominio no autorizado: ${dominioActual}`);
 }
