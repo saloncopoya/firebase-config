@@ -1,8 +1,3 @@
-// ==============================================
-// CONFIGURACIÓN DE FIREBASE - Archivo externo
-// ==============================================
-
-// DOMINIOS PERMITIDOS (SOLO ESTOS)
 const dominiosPermitidos = [
     'cmbt-2211-94b-omega.blogspot.com',
     'legadoavicola.blogspot.com'
